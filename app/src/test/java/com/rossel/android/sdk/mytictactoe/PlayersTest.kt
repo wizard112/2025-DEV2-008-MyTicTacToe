@@ -13,4 +13,20 @@ class PlayersTest {
         Assert.assertEquals("X", players.playerX)
         Assert.assertEquals("O", players.playerO)
     }
+
+    @Test
+    fun `should player 0 plays when player X just played`() {
+        players.turnTo()
+        Assert.assertEquals("O", players.playerO)
+    }
+
+    @Test
+    fun `should player X plays when player 0 just played`() {
+        players.turnTo()
+        var firstTurn = players.current
+        players.turnTo()
+        var secondTurn = players.current
+        Assert.assertEquals("X", firstTurn)
+        Assert.assertEquals("O", secondTurn)
+    }
 }
