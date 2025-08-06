@@ -21,4 +21,14 @@ class GameRulesTest {
         game.play(position = 1)
         Assert.assertTrue(game.giveMePositions().contains(element = 1))
     }
+
+    @Test
+    fun `should players alternate when the board is not filled`() {
+        game.turnTo()
+        val turnOne = game.giveMeCurrentPlayer()
+        game.turnTo()
+        val turnTwo = game.giveMeCurrentPlayer()
+        Assert.assertEquals("X", turnOne)
+        Assert.assertEquals("O", turnTwo)
+    }
 }

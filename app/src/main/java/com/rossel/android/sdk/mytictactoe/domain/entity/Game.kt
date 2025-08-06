@@ -4,14 +4,16 @@ import com.rossel.android.sdk.mytictactoe.data.exceptions.GameException
 
 class Game {
     private val playerX = "X"
-    private val playerY = "Y"
+    private val player0 = "O"
     private var currentPlayer: String = ""
     private val positions: MutableList<Int> = mutableListOf()
 
     fun giveMeCurrentPlayer(): String = currentPlayer
     fun giveMePositions(): List<Int> = positions
     fun turnTo() {
-        if (currentPlayer.isEmpty()) currentPlayer = playerX
+        currentPlayer =
+        if (currentPlayer.isEmpty()) playerX
+        else if (currentPlayer == playerX) player0 else playerX
     }
     fun play(position: Int) {
         if (positions.contains(element = position))
