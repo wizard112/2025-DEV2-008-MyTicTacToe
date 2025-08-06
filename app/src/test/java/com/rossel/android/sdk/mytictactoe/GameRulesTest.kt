@@ -11,8 +11,8 @@ class GameRulesTest {
 
     @Test
     fun `should player X when the game starts`() {
-        game.turnTo()
-        Assert.assertEquals("X", game.giveMeCurrentPlayer())
+        game.players.turnTo()
+        Assert.assertEquals("X", game.players.currentPlayer())
     }
 
     @Test (expected = GameException::class)
@@ -24,10 +24,10 @@ class GameRulesTest {
 
     @Test
     fun `should players alternate when the board is not filled`() {
-        game.turnTo()
-        val turnOne = game.giveMeCurrentPlayer()
-        game.turnTo()
-        val turnTwo = game.giveMeCurrentPlayer()
+        game.players.turnTo()
+        val turnOne = game.players.currentPlayer()
+        game.players.turnTo()
+        val turnTwo = game.players.currentPlayer()
         Assert.assertEquals("X", turnOne)
         Assert.assertEquals("O", turnTwo)
     }
