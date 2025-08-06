@@ -1,6 +1,7 @@
 package com.rossel.android.sdk.mytictactoe
 
 import com.rossel.android.sdk.mytictactoe.domain.entity.Players
+import com.rossel.android.sdk.mytictactoe.domain.enums.Player
 import org.junit.Assert
 import org.junit.Test
 
@@ -10,14 +11,14 @@ class PlayersTest {
 
     @Test
     fun `should have the player X and player O when start the game`() {
-        Assert.assertEquals("X", players.playerX)
-        Assert.assertEquals("O", players.playerO)
+        Assert.assertEquals(Player.X, players.playerX)
+        Assert.assertEquals(Player.O, players.playerO)
     }
 
     @Test
     fun `should player 0 plays when player X just played`() {
         players.turnTo()
-        Assert.assertEquals("O", players.playerO)
+        Assert.assertEquals(Player.O, players.playerO)
     }
 
     @Test
@@ -26,7 +27,7 @@ class PlayersTest {
         val firstTurn = players.currentPlayer()
         players.turnTo()
         val secondTurn = players.currentPlayer()
-        Assert.assertEquals("X", firstTurn)
-        Assert.assertEquals("O", secondTurn)
+        Assert.assertEquals(Player.X, firstTurn)
+        Assert.assertEquals(Player.O, secondTurn)
     }
 }

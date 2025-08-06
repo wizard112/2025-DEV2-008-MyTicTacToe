@@ -2,6 +2,7 @@ package com.rossel.android.sdk.mytictactoe
 
 import com.rossel.android.sdk.mytictactoe.data.exceptions.GameException
 import com.rossel.android.sdk.mytictactoe.domain.entity.Game
+import com.rossel.android.sdk.mytictactoe.domain.enums.Player
 import org.junit.Assert
 import org.junit.Test
 
@@ -12,7 +13,7 @@ class GameRulesTest {
     @Test
     fun `should player X when the game starts`() {
         game.players.turnTo()
-        Assert.assertEquals("X", game.players.currentPlayer())
+        Assert.assertEquals(Player.X, game.players.currentPlayer())
     }
 
     @Test (expected = GameException::class)
@@ -28,7 +29,7 @@ class GameRulesTest {
         val turnOne = game.players.currentPlayer()
         game.players.turnTo()
         val turnTwo = game.players.currentPlayer()
-        Assert.assertEquals("X", turnOne)
-        Assert.assertEquals("O", turnTwo)
+        Assert.assertEquals(Player.X, turnOne)
+        Assert.assertEquals(Player.O, turnTwo)
     }
 }
