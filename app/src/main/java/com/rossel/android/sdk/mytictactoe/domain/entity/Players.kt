@@ -1,10 +1,9 @@
 package com.rossel.android.sdk.mytictactoe.domain.entity
 
-import com.rossel.android.sdk.mytictactoe.domain.interfaces.IPlayerCurrent
-import com.rossel.android.sdk.mytictactoe.domain.interfaces.IPlayerTurnTo
+import com.rossel.android.sdk.mytictactoe.domain.interfaces.IPlayer
 
 
-class Players: IPlayerTurnTo, IPlayerCurrent {
+class Players: IPlayer {
     val playerX = "X"
     val playerO = "O"
     private var current: String = ""
