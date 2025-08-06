@@ -1,6 +1,7 @@
 package com.rossel.android.sdk.mytictactoe.domain.entity
 
 import com.rossel.android.sdk.mytictactoe.data.exceptions.GameException
+import com.rossel.android.sdk.mytictactoe.domain.constants.FIELD_ALREADY_TAKEN
 import com.rossel.android.sdk.mytictactoe.domain.interfaces.IPlayer
 
 class Game {
@@ -12,7 +13,7 @@ class Game {
     fun play(position: Int) {
         players.turnTo()
         if (positions.contains(element = position))
-            throw GameException(msg = "the position is already taken")
+            throw GameException(msg = FIELD_ALREADY_TAKEN)
         positions.add(element = position)
     }
 }
