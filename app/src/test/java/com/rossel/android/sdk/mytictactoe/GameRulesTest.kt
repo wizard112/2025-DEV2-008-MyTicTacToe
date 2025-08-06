@@ -10,7 +10,14 @@ class GameRulesTest {
 
     @Test
     fun `should player X when the game starts`() {
-        Assert.assertEquals("X", game.currentPlayer())
-        Assert.assertNotEquals("O", game.currentPlayer())
+        game.play(position = 1)
+        Assert.assertEquals("X", game.giveMeCurrentPlayer())
+        Assert.assertNotEquals("O", game.giveMeCurrentPlayer())
+    }
+
+    @Test (expected = Exception::class)
+    fun `should an Exception when the player games a positioned position`() {
+        game.play(position = 1)
+        game.play(position = 1)
     }
 }

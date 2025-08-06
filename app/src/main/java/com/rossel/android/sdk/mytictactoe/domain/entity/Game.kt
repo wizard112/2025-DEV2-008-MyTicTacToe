@@ -1,5 +1,17 @@
 package com.rossel.android.sdk.mytictactoe.domain.entity
 
 class Game {
-    fun currentPlayer(): String = "X"
+    private val playerX = "X"
+    private val playerY = "Y"
+    private var currentPlayer: String = ""
+    private val positions: MutableList<Int> = mutableListOf()
+
+    fun giveMeCurrentPlayer(): String = currentPlayer
+    fun giveMePositions(): List<Int> = positions
+    fun play(position: Int) {
+        currentPlayer = playerX
+        if (positions.contains(element = position))
+            throw Exception("the position is already taken")
+        positions.add(element = position)
+    }
 }
