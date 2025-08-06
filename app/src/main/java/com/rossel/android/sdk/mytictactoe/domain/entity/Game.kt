@@ -11,7 +11,6 @@ class Game {
     fun giveMeCurrentPlayer(): String = currentPlayer
     fun giveMePositions(): List<Int> = positions
     fun play(position: Int) {
-        currentPlayer = playerX
         if (positions.contains(element = position))
             throw GameException(msg = "the position is already taken")
         positions.add(element = position)
