@@ -11,5 +11,6 @@ class GameRulesTest {
     @Test
     fun `should player X when the game starts`() {
         Assert.assertEquals("X", game.currentPlayer())
+        Assert.assertNotEquals("O", game.currentPlayer())
     }
 }
