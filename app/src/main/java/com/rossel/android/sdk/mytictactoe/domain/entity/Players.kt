@@ -1,12 +1,15 @@
 package com.rossel.android.sdk.mytictactoe.domain.entity
 
-import com.rossel.android.sdk.mytictactoe.domain.IPlayer
+import com.rossel.android.sdk.mytictactoe.domain.interfaces.IPlayerCurrent
+import com.rossel.android.sdk.mytictactoe.domain.interfaces.IPlayerTurnTo
 
-class Players: IPlayer {
+
+class Players: IPlayerTurnTo, IPlayerCurrent {
     val playerX = "X"
     val playerO = "O"
-    var current: String = ""
+    private var current: String = ""
 
+    override fun currentPlayer(): String = current
     override fun turnTo() {
         current = when {
             current.isEmpty() -> playerX

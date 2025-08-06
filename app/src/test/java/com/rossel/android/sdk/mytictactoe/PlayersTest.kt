@@ -23,9 +23,9 @@ class PlayersTest {
     @Test
     fun `should player X plays when player 0 just played`() {
         players.turnTo()
-        var firstTurn = players.current
+        val firstTurn = players.currentPlayer()
         players.turnTo()
-        var secondTurn = players.current
+        val secondTurn = players.currentPlayer()
         Assert.assertEquals("X", firstTurn)
         Assert.assertEquals("O", secondTurn)
     }
