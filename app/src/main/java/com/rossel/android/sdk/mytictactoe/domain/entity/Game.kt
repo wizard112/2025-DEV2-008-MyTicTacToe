@@ -11,7 +11,7 @@ class Game {
 
     fun play(position: Int) {
         players.turnTo()
-        if (board.get(position) != Player.EMPTY)
+        if (board[position] != Player.EMPTY)
             throw GameException(msg = FIELD_ALREADY_TAKEN)
         board.add(index = position, element = players.currentPlayer())
     }
