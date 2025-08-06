@@ -1,5 +1,7 @@
 package com.rossel.android.sdk.mytictactoe.domain.entity
 
+import com.rossel.android.sdk.mytictactoe.data.exceptions.GameException
+
 class Game {
     private val playerX = "X"
     private val playerY = "Y"
@@ -11,7 +13,7 @@ class Game {
     fun play(position: Int) {
         currentPlayer = playerX
         if (positions.contains(element = position))
-            throw Exception("the position is already taken")
+            throw GameException(msg = "the position is already taken")
         positions.add(element = position)
     }
 }

@@ -1,5 +1,6 @@
 package com.rossel.android.sdk.mytictactoe
 
+import com.rossel.android.sdk.mytictactoe.data.exceptions.GameException
 import com.rossel.android.sdk.mytictactoe.domain.entity.Game
 import org.junit.Assert
 import org.junit.Test
@@ -15,7 +16,7 @@ class GameRulesTest {
         Assert.assertNotEquals("O", game.giveMeCurrentPlayer())
     }
 
-    @Test (expected = Exception::class)
+    @Test (expected = GameException::class)
     fun `should an Exception when the player games a positioned position`() {
         game.play(position = 1)
         game.play(position = 1)
