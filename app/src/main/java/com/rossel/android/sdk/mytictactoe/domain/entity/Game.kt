@@ -10,6 +10,9 @@ class Game {
 
     fun giveMeCurrentPlayer(): String = currentPlayer
     fun giveMePositions(): List<Int> = positions
+    fun turnTo() {
+        if (currentPlayer.isEmpty()) currentPlayer = playerX
+    }
     fun play(position: Int) {
         if (positions.contains(element = position))
             throw GameException(msg = "the position is already taken")
