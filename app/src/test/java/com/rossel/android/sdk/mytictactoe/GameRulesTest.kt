@@ -20,16 +20,29 @@ class GameRulesTest {
     fun `should an Exception when the player games a positioned position`() {
         game.play(position = 1)
         game.play(position = 1)
-        Assert.assertTrue(game.giveMePositions().contains(element = 1))
+        Assert.assertTrue(game.board.contains(element = Player.X))
     }
 
     @Test
     fun `should players alternate when the board is not filled`() {
-        game.players.turnTo()
+        game.play(position = 1)
         val turnOne = game.players.currentPlayer()
-        game.players.turnTo()
+        game.play(position = 2)
         val turnTwo = game.players.currentPlayer()
         Assert.assertEquals(Player.X, turnOne)
         Assert.assertEquals(Player.O, turnTwo)
+    }
+
+    @Test
+    fun `should position 1 is filled in the board when player X take the position 1`() {
+        game.play(position = 1)
+        Assert.assertEquals(Player.X, game.board[1])
+    }
+
+    @Test
+    fun `should position 8 is filled in the board when player O take the position 8`() {
+        game.play(position = 1)
+        game.play(position = 8)
+        Assert.assertEquals(Player.O, game.board[8])
     }
 }
