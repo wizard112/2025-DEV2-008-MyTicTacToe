@@ -5,8 +5,8 @@ import com.rossel.android.sdk.mytictactoe.domain.interfaces.IPlayer
 
 
 class Players: IPlayer {
-    val playerX: Player = Player.X
-    val playerO: Player = Player.O
+    private val playerX: Player = Player.X
+    private val playerO: Player = Player.O
     private var current: Player = Player.EMPTY
 
     override fun playerX(): Player = playerX
