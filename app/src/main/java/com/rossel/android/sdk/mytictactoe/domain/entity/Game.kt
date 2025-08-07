@@ -15,4 +15,6 @@ class Game {
             throw GameException(msg = FIELD_ALREADY_TAKEN)
         board.add(index = position, element = players.currentPlayer())
     }
+
+    fun state(): String = "match nul"
 }
