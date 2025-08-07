@@ -80,4 +80,14 @@ class GameRulesTest {
         game.play(position = 8)
         Assert.assertEquals("finished", game.state())
     }
+
+    @Test
+    fun `should finished when player has three in row of first vertical`() {
+        game.play(position = 0)
+        game.play(position = 1)
+        game.play(position = 3)
+        game.play(position = 2)
+        game.play(position = 6)
+        Assert.assertEquals("finished", game.state())
+    }
 }
