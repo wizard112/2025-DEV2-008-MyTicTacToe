@@ -16,5 +16,7 @@ class Game {
         board.add(index = position, element = players.currentPlayer())
     }
 
-    fun state(): String = "match nul"
+    fun state(): String {
+        return if (board.size == 9) "match nul" else ""
+    }
 }

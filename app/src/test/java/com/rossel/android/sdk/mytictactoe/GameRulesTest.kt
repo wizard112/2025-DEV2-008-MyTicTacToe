@@ -50,4 +50,9 @@ class GameRulesTest {
     fun `should match nul when nine squares are filled`() {
         Assert.assertEquals("match nul", game.state())
     }
+
+    @Test
+    fun `should finished when player has three in row horizontal`() {
+        Assert.assertEquals("finished", game.state())
+    }
 }
