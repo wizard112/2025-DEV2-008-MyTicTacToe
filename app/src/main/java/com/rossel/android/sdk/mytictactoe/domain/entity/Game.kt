@@ -18,7 +18,9 @@ class Game {
 
     fun state(): String {
         return if (horizontalRow(player = players.playerX())
-            || horizontalRow(player = players.playerO())) {
+            || horizontalRow(player = players.playerO())
+            || verticalRow(player = players.playerX())
+            || verticalRow(player = players.playerO())) {
             "finished"
         } else "match nul"
     }
@@ -27,5 +29,11 @@ class Game {
         return (board[0] == player && board[1] == player && board[2] == player)
                 || (board[3] == player && board[4] == player && board[5] == player)
                 || (board[6] == player && board[7] == player && board[8] == player)
+    }
+
+    private fun verticalRow(player: Player): Boolean {
+        return (board[0] == player && board[3] == player && board[6] == player)
+                || (board[1] == player && board[4] == player && board[7] == player)
+                || (board[2] == player && board[5] == player && board[8] == player)
     }
 }
