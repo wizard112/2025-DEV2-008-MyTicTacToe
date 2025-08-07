@@ -20,7 +20,7 @@ class GameRulesTest {
     fun `should an Exception when the player games a positioned position`() {
         game.play(position = 1)
         game.play(position = 1)
-        Assert.assertTrue(game.state.board.contains(element = Player.X))
+        Assert.assertTrue(game.state.board().contains(element = Player.X))
     }
 
     @Test
@@ -36,14 +36,14 @@ class GameRulesTest {
     @Test
     fun `should position 1 is filled in the board when player X take the position 1`() {
         game.play(position = 1)
-        Assert.assertEquals(Player.X, game.state.board[1])
+        Assert.assertEquals(Player.X, game.state.board()[1])
     }
 
     @Test
     fun `should position 8 is filled in the board when player O take the position 8`() {
         game.play(position = 1)
         game.play(position = 8)
-        Assert.assertEquals(Player.O, game.state.board[8])
+        Assert.assertEquals(Player.O, game.state.board()[8])
     }
 
     @Test

@@ -6,12 +6,14 @@ import com.rossel.android.sdk.mytictactoe.domain.enums.Player
 import com.rossel.android.sdk.mytictactoe.domain.interfaces.IState
 
 class GameState: IState {
-    val board: MutableList<Player> = MutableList(9, { Player.EMPTY })
+    private val mBoard: MutableList<Player> = MutableList(9, { Player.EMPTY })
+
+    override fun board(): List<Player> = this.mBoard
 
     override fun moveTo(position: Int, player: Player) {
-        if (board[position] != Player.EMPTY)
+        if (mBoard[position] != Player.EMPTY)
             throw GameException(msg = FIELD_ALREADY_TAKEN)
-        board[position] = player
+        mBoard[position] = player
     }
 
     override fun current(): String = if (horizontalRow(player = Player.X)
@@ -26,22 +28,22 @@ class GameState: IState {
     } else "match nul"
 
     private fun horizontalRow(player: Player): Boolean {
-        return (board[0] == player && board[1] == player && board[2] == player)
-                || (board[3] == player && board[4] == player && board[5] == player)
-                || (board[6] == player && board[7] == player && board[8] == player)
+        return (mBoard[0] == player && mBoard[1] == player && mBoard[2] == player)
+                || (mBoard[3] == player && mBoard[4] == player && mBoard[5] == player)
+                || (mBoard[6] == player && mBoard[7] == player && mBoard[8] == player)
     }
 
     private fun verticalRow(player: Player): Boolean {
-        return (board[0] == player && board[3] == player && board[6] == player)
-                || (board[1] == player && board[4] == player && board[7] == player)
-                || (board[2] == player && board[5] == player && board[8] == player)
+        return (mBoard[0] == player && mBoard[3] == player && mBoard[6] == player)
+                || (mBoard[1] == player && mBoard[4] == player && mBoard[7] == player)
+                || (mBoard[2] == player && mBoard[5] == player && mBoard[8] == player)
     }
 
     private fun diagonalRow(player: Player): Boolean {
-        return (board[0] == player && board[4] == player && board[8] == player)
+        return (mBoard[0] == player && mBoard[4] == player && mBoard[8] == player)
     }
 
     private fun antidiagonalRow(player: Player): Boolean {
-        return (board[2] == player && board[4] == player && board[6] == player)
+        return (mBoard[2] == player && mBoard[4] == player && mBoard[6] == player)
     }
 }
