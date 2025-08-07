@@ -126,7 +126,7 @@ class GameRulesTest {
         game.play(position = 2)
         game.play(position = 1)
         game.play(position = 4)
-        game.play(position = 2)
+        game.play(position = 3)
         game.play(position = 6)
         Assert.assertEquals("finished", game.state())
     }

@@ -22,7 +22,9 @@ class Game {
             || verticalRow(player = players.playerX())
             || verticalRow(player = players.playerO())
             || diagonalRow(player = players.playerX())
-            || diagonalRow(player = players.playerO())) {
+            || diagonalRow(player = players.playerO())
+            || antidiagonalRow(player = players.playerX())
+            || antidiagonalRow(player = players.playerO())) {
             "finished"
         } else "match nul"
     }
@@ -41,5 +43,9 @@ class Game {
 
     private fun diagonalRow(player: Player): Boolean {
         return (board[0] == player && board[4] == player && board[8] == player)
+    }
+
+    private fun antidiagonalRow(player: Player): Boolean {
+        return (board[2] == player && board[4] == player && board[6] == player)
     }
 }
