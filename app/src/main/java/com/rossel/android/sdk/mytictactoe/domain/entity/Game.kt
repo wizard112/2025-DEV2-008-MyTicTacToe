@@ -13,14 +13,19 @@ class Game {
         players.turnTo()
         if (board[position] != Player.EMPTY)
             throw GameException(msg = FIELD_ALREADY_TAKEN)
-        board.add(index = position, element = players.currentPlayer())
+        board[position] = players.currentPlayer()
     }
 
     fun state(): String {
-        //return if (board.size == 9) "match nul" else ""
-        return if ((board[0] == Player.X && board[1] == Player.X && board[2] == Player.X)
-            || (board[0] == Player.O && board[1] == Player.O && board[2] == Player.O)) {
+        return if (horizontalRow()) {
             "finished"
         } else "match nul"
+    }
+
+    private fun horizontalRow(): Boolean {
+        return ((board[0] == Player.X && board[1] == Player.X && board[2] == Player.X)
+                || (board[0] == Player.O && board[1] == Player.O && board[2] == Player.O)
+                || (board[3] == Player.X && board[4] == Player.X && board[5] == Player.X)
+                || (board[3] == Player.O && board[4] == Player.O && board[5] == Player.O))
     }
 }
