@@ -9,6 +9,8 @@ class Players: IPlayer {
     val playerO: Player = Player.O
     private var current: Player = Player.EMPTY
 
+    override fun playerX(): Player = playerX
+    override fun playerO(): Player = playerO
     override fun currentPlayer(): Player = current
     override fun turnTo() {
         current = when(current) {
