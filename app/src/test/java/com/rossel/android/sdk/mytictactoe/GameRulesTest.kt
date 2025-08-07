@@ -120,4 +120,14 @@ class GameRulesTest {
         game.play(position = 8)
         Assert.assertEquals("finished", game.state())
     }
+
+    @Test
+    fun `should finished when player has three in antidiagonal`() {
+        game.play(position = 2)
+        game.play(position = 1)
+        game.play(position = 4)
+        game.play(position = 2)
+        game.play(position = 6)
+        Assert.assertEquals("finished", game.state())
+    }
 }
