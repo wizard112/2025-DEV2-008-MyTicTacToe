@@ -45,4 +45,9 @@ class GameRulesTest {
         game.play(position = 8)
         Assert.assertEquals(Player.O, game.board[8])
     }
+
+    @Test
+    fun `should match nul when nine squares are filled`() {
+        Assert.assertEquals("match nul", game.state())
+    }
 }
