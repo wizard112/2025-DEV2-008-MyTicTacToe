@@ -2,6 +2,7 @@ package com.rossel.android.sdk.mytictactoe
 
 import com.rossel.android.sdk.mytictactoe.domain.entity.VerifierGame
 import com.rossel.android.sdk.mytictactoe.domain.enums.Player
+import com.rossel.android.sdk.mytictactoe.domain.enums.StateEnum
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -30,7 +31,7 @@ class VerifierGameTest {
         board[1] = Player.X
         board[6] = Player.O
         board[2] = Player.X
-        Assert.assertEquals("finished", verifier.verify(board = board))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = board))
     }
 
     @Test
@@ -40,7 +41,7 @@ class VerifierGameTest {
         board[4] = Player.X
         board[1] = Player.O
         board[5] = Player.X
-        Assert.assertEquals("finished", verifier.verify(board = board))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = board))
     }
 
     @Test
@@ -50,7 +51,7 @@ class VerifierGameTest {
         board[7] = Player.X
         board[1] = Player.O
         board[8] = Player.X
-        Assert.assertEquals("finished", verifier.verify(board = board))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = board))
     }
 
     @Test
@@ -60,7 +61,7 @@ class VerifierGameTest {
         board[3] = Player.X
         board[2] = Player.O
         board[6] = Player.X
-        Assert.assertEquals("finished", verifier.verify(board = board))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = board))
     }
 
     @Test
@@ -70,7 +71,7 @@ class VerifierGameTest {
         board[4] = Player.X
         board[2] = Player.O
         board[7] = Player.X
-        Assert.assertEquals("finished", verifier.verify(board = board))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = board))
     }
 
     @Test
@@ -80,7 +81,7 @@ class VerifierGameTest {
         board[4] = Player.X
         board[2] = Player.O
         board[7] = Player.X
-        Assert.assertEquals("finished", verifier.verify(board = board))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = board))
     }
 
     @Test
@@ -90,7 +91,7 @@ class VerifierGameTest {
         board[4] = Player.X
         board[2] = Player.O
         board[8] = Player.X
-        Assert.assertEquals("finished", verifier.verify(board = board))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = board))
     }
 
     @Test
@@ -100,6 +101,20 @@ class VerifierGameTest {
         board[4] = Player.X
         board[3] = Player.O
         board[6] = Player.X
-        Assert.assertEquals("finished", verifier.verify(board = board))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = board))
+    }
+
+    @Test
+    fun `should match nul when nine squares are filled`() {
+        board[0] = Player.X
+        board[2] = Player.O
+        board[6] = Player.X
+        board[3] = Player.O
+        board[8] = Player.X
+        board[4] = Player.O
+        board[5] = Player.X
+        board[7] = Player.O
+        board[1] = Player.X
+        Assert.assertEquals(StateEnum.MATCH_NUL, verifier.verify(board = board))
     }
 }
