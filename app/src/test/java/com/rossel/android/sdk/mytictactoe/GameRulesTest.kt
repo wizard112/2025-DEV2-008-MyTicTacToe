@@ -53,6 +53,11 @@ class GameRulesTest {
 
     @Test
     fun `should finished when player has three in row horizontal`() {
+        game.play(position = 0)
+        game.play(position = 3)
+        game.play(position = 1)
+        game.play(position = 6)
+        game.play(position = 2)
         Assert.assertEquals("finished", game.state())
     }
 }

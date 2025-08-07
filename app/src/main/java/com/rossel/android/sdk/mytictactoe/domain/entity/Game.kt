@@ -17,6 +17,10 @@ class Game {
     }
 
     fun state(): String {
-        return if (board.size == 9) "match nul" else ""
+        //return if (board.size == 9) "match nul" else ""
+        return if ((board[0] == Player.X && board[1] == Player.X && board[2] == Player.X)
+            || (board[0] == Player.O && board[1] == Player.O && board[2] == Player.O)) {
+            "finished"
+        } else "match nul"
     }
 }
