@@ -51,7 +51,7 @@ class GameRulesTest {
         Assert.assertEquals("match nul", game.state())
     }
 
-    /*@Test
+    @Test
     fun `should finished when player has three in row of first horizontal`() {
         game.play(position = 0)
         game.play(position = 3)
@@ -59,7 +59,7 @@ class GameRulesTest {
         game.play(position = 6)
         game.play(position = 2)
         Assert.assertEquals("finished", game.state())
-    }*/
+    }
 
     @Test
     fun `should finished when player has three in row of second horizontal`() {
@@ -68,6 +68,16 @@ class GameRulesTest {
         game.play(position = 4)
         game.play(position = 1)
         game.play(position = 5)
+        Assert.assertEquals("finished", game.state())
+    }
+
+    @Test
+    fun `should finished when player has three in row of third horizontal`() {
+        game.play(position = 6)
+        game.play(position = 0)
+        game.play(position = 7)
+        game.play(position = 1)
+        game.play(position = 8)
         Assert.assertEquals("finished", game.state())
     }
 }

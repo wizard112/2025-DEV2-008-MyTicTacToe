@@ -17,15 +17,15 @@ class Game {
     }
 
     fun state(): String {
-        return if (horizontalRow()) {
+        return if (horizontalRow(player = players.playerX())
+            || horizontalRow(player = players.playerO())) {
             "finished"
         } else "match nul"
     }
 
-    private fun horizontalRow(): Boolean {
-        return ((board[0] == Player.X && board[1] == Player.X && board[2] == Player.X)
-                || (board[0] == Player.O && board[1] == Player.O && board[2] == Player.O)
-                || (board[3] == Player.X && board[4] == Player.X && board[5] == Player.X)
-                || (board[3] == Player.O && board[4] == Player.O && board[5] == Player.O))
+    private fun horizontalRow(player: Player): Boolean {
+        return (board[0] == player && board[1] == player && board[2] == player)
+                || (board[3] == player && board[4] == player && board[5] == player)
+                || (board[6] == player && board[7] == player && board[8] == player)
     }
 }
