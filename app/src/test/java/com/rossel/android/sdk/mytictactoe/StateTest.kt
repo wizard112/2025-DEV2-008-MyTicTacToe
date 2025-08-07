@@ -15,7 +15,7 @@ class StateTest {
         state.moveTo(position = 1, player = Player.X)
         state.moveTo(position = 6, player = Player.O)
         state.moveTo(position = 2, player = Player.X)
-        Assert.assertEquals("finished", state.current(player = Player.X))
+        Assert.assertEquals("finished", state.current())
     }
 
     @Test
@@ -25,7 +25,7 @@ class StateTest {
         state.moveTo(position = 4, player = Player.X)
         state.moveTo(position = 1, player = Player.O)
         state.moveTo(position = 5, player = Player.X)
-        Assert.assertEquals("finished", state.current(player = Player.X))
+        Assert.assertEquals("finished", state.current())
     }
 
     @Test
@@ -35,7 +35,7 @@ class StateTest {
         state.moveTo(position = 7, player = Player.X)
         state.moveTo(position = 1, player = Player.O)
         state.moveTo(position = 8, player = Player.X)
-        Assert.assertEquals("finished", state.current(player = Player.X))
+        Assert.assertEquals("finished", state.current())
     }
 
     @Test
@@ -45,7 +45,7 @@ class StateTest {
         state.moveTo(position = 3, player = Player.X)
         state.moveTo(position = 2, player = Player.O)
         state.moveTo(position = 6, player = Player.X)
-        Assert.assertEquals("finished", state.current(player = Player.X))
+        Assert.assertEquals("finished", state.current())
     }
 
     @Test
@@ -55,7 +55,7 @@ class StateTest {
         state.moveTo(position = 4, player = Player.X)
         state.moveTo(position = 2, player = Player.O)
         state.moveTo(position = 7, player = Player.X)
-        Assert.assertEquals("finished", state.current(player = Player.X))
+        Assert.assertEquals("finished", state.current())
     }
 
     @Test
@@ -65,7 +65,7 @@ class StateTest {
         state.moveTo(position = 4, player = Player.X)
         state.moveTo(position = 2, player = Player.O)
         state.moveTo(position = 7, player = Player.X)
-        Assert.assertEquals("finished", state.current(player = Player.X))
+        Assert.assertEquals("finished", state.current())
     }
 
     @Test
@@ -75,7 +75,7 @@ class StateTest {
         state.moveTo(position = 4, player = Player.X)
         state.moveTo(position = 2, player = Player.O)
         state.moveTo(position = 8, player = Player.X)
-        Assert.assertEquals("finished", state.current(player = Player.X))
+        Assert.assertEquals("finished", state.current())
     }
 
     @Test
@@ -85,6 +85,6 @@ class StateTest {
         state.moveTo(position = 4, player = Player.X)
         state.moveTo(position = 3, player = Player.O)
         state.moveTo(position = 6, player = Player.X)
-        Assert.assertEquals("finished", state.current(player = Player.X))
+        Assert.assertEquals("finished", state.current())
     }
 }

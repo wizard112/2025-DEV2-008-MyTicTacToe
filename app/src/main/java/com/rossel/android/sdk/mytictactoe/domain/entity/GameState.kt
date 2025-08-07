@@ -13,10 +13,14 @@ class GameState {
         board[position] = player
     }
 
-    fun current(player: Player): String = if (horizontalRow(player = player)
-        || verticalRow(player = player)
-        || diagonalRow(player = player)
-        || antidiagonalRow(player = player)) {
+    fun current(): String = if (horizontalRow(player = Player.X)
+        || horizontalRow(player = Player.O)
+        || verticalRow(player = Player.X)
+        || verticalRow(player = Player.O)
+        || diagonalRow(player = Player.X)
+        || diagonalRow(player = Player.O)
+        || antidiagonalRow(player = Player.X)
+        || antidiagonalRow(player = Player.O)) {
         "finished"
     } else "match nul"
 
