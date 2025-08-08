@@ -1,16 +1,19 @@
 package com.rossel.android.sdk.mytictactoe
 
 import com.rossel.android.sdk.mytictactoe.data.exceptions.GameException
+import com.rossel.android.sdk.mytictactoe.domain.usecase.VerifierGameUseCase
 import com.rossel.android.sdk.mytictactoe.domain.usecase.GameUseCase
 import com.rossel.android.sdk.mytictactoe.domain.enums.Player
 import com.rossel.android.sdk.mytictactoe.domain.enums.StateEnum
 import com.rossel.android.sdk.mytictactoe.domain.interfaces.IGameUseCase
+import com.rossel.android.sdk.mytictactoe.domain.interfaces.IVerifierUseCase
 import org.junit.Assert
 import org.junit.Test
 
 class GameRulesTest {
 
     private val game: IGameUseCase = GameUseCase()
+    private val verifier: IVerifierUseCase = VerifierGameUseCase()
 
     @Test
     fun `should player X when the game starts`() {
@@ -59,7 +62,7 @@ class GameRulesTest {
         game.play(position = 5)
         game.play(position = 7)
         game.play(position = 1)
-        Assert.assertEquals(StateEnum.MATCH_NUL, game.state().verifier().verify(board = game.state().board()))
+        Assert.assertEquals(StateEnum.MATCH_NUL, verifier.verify(board = game.state().board()))
     }
 
     @Test
@@ -69,7 +72,7 @@ class GameRulesTest {
         game.play(position = 1)
         game.play(position = 6)
         game.play(position = 2)
-        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = game.state().board()))
     }
 
     @Test
@@ -79,7 +82,7 @@ class GameRulesTest {
         game.play(position = 4)
         game.play(position = 1)
         game.play(position = 5)
-        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = game.state().board()))
     }
 
     @Test
@@ -89,7 +92,7 @@ class GameRulesTest {
         game.play(position = 7)
         game.play(position = 1)
         game.play(position = 8)
-        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = game.state().board()))
     }
 
     @Test
@@ -99,7 +102,7 @@ class GameRulesTest {
         game.play(position = 3)
         game.play(position = 2)
         game.play(position = 6)
-        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = game.state().board()))
     }
 
     @Test
@@ -109,7 +112,7 @@ class GameRulesTest {
         game.play(position = 4)
         game.play(position = 2)
         game.play(position = 7)
-        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = game.state().board()))
     }
 
     @Test
@@ -119,7 +122,7 @@ class GameRulesTest {
         game.play(position = 4)
         game.play(position = 2)
         game.play(position = 7)
-        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = game.state().board()))
     }
 
     @Test
@@ -129,7 +132,7 @@ class GameRulesTest {
         game.play(position = 4)
         game.play(position = 2)
         game.play(position = 8)
-        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = game.state().board()))
     }
 
     @Test
@@ -139,6 +142,6 @@ class GameRulesTest {
         game.play(position = 4)
         game.play(position = 3)
         game.play(position = 6)
-        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
+        Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = game.state().board()))
     }
 }

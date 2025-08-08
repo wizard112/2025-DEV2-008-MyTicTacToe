@@ -1,6 +1,6 @@
 package com.rossel.android.sdk.mytictactoe
 
-import com.rossel.android.sdk.mytictactoe.domain.entity.VerifierGame
+import com.rossel.android.sdk.mytictactoe.domain.usecase.VerifierGameUseCase
 import com.rossel.android.sdk.mytictactoe.domain.enums.Player
 import com.rossel.android.sdk.mytictactoe.domain.enums.StateEnum
 import org.junit.Assert
@@ -8,7 +8,7 @@ import org.junit.Before
 import org.junit.Test
 
 class VerifierGameTest {
-    private val verifier = VerifierGame()
+    private val verifier = VerifierGameUseCase()
     private val board = mutableListOf<Player>()
 
     @Before
