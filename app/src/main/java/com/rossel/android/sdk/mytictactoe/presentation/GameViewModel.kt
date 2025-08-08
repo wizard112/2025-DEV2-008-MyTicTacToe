@@ -1,7 +1,6 @@
 package com.rossel.android.sdk.mytictactoe.presentation
 
 import androidx.lifecycle.ViewModel
-import com.rossel.android.sdk.mytictactoe.domain.enums.StateEnum
 import com.rossel.android.sdk.mytictactoe.domain.interfaces.IGameUseCase
 import com.rossel.android.sdk.mytictactoe.domain.interfaces.IVerifierUseCase
 import com.rossel.android.sdk.mytictactoe.domain.usecase.GameUseCase

@@ -45,4 +45,31 @@ class GameViewModelTest {
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 1))
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 1))
     }
+
+    @Test
+    fun `should game is over when the player X wins`() {
+        gameViewModel.handleIntents(intent = GameIntents.Moving(position = 0))
+        gameViewModel.handleIntents(intent = GameIntents.Moving(position = 1))
+        gameViewModel.handleIntents(intent = GameIntents.Moving(position = 4))
+        gameViewModel.handleIntents(intent = GameIntents.Moving(position = 2))
+        gameViewModel.handleIntents(intent = GameIntents.Moving(position = 8))
+        val uiState = gameViewModel.uiState.value
+        Assert.assertTrue(uiState is GameUiState.Playing)
+        Assert.assertEquals(StateEnum.FINISHED, (uiState as GameUiState.Playing).stateEnum)
+        Assert.assertEquals(Player.X.name, uiState.playerName)
+    }
+
+    @Test
+    fun `should game is over when the player O wins`() {
+        gameViewModel.handleIntents(intent = GameIntents.Moving(position = 0))
+        gameViewModel.handleIntents(intent = GameIntents.Moving(position = 1))
+        gameViewModel.handleIntents(intent = GameIntents.Moving(position = 2))
+        gameViewModel.handleIntents(intent = GameIntents.Moving(position = 4))
+        gameViewModel.handleIntents(intent = GameIntents.Moving(position = 5))
+        gameViewModel.handleIntents(intent = GameIntents.Moving(position = 7))
+        val uiState = gameViewModel.uiState.value
+        Assert.assertTrue(uiState is GameUiState.Playing)
+        Assert.assertEquals(StateEnum.FINISHED, (uiState as GameUiState.Playing).stateEnum)
+        Assert.assertEquals(Player.O.name, uiState.playerName)
+    }
 }
