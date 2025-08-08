@@ -1,5 +1,6 @@
 package com.rossel.android.sdk.mytictactoe
 
+import com.rossel.android.sdk.mytictactoe.domain.enums.Player
 import com.rossel.android.sdk.mytictactoe.presentation.GameUiState
 import com.rossel.android.sdk.mytictactoe.presentation.GameViewModel
 import org.junit.Assert
@@ -10,8 +11,9 @@ class GameViewModelTest {
     private val gameViewModel = GameViewModel()
 
     @Test
-    fun `should state is started when the view model is instantiated`() {
-        gameViewModel.manageGame(position = 1)
-        Assert.assertEquals(GameUiState.Playing, gameViewModel.uiState.value)
+    fun `should state is Playing when the view model is instantiated`() {
+        val uiState = gameViewModel.uiState.value
+        Assert.assertTrue(uiState is GameUiState.Playing)
+        Assert.assertEquals(Player.EMPTY, (uiState as GameUiState.Playing).board[2])
     }
 }
