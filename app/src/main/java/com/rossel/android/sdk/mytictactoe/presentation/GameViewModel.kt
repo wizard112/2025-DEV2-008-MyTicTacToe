@@ -12,11 +12,14 @@ class GameViewModel: ViewModel() {
     private val gameUseCase: IGameUseCase = GameUseCase()
     private val verifierGameUseCase: IVerifierUseCase = VerifierGameUseCase()
 
-    private val _uiState: MutableStateFlow<GameUiState> = MutableStateFlow(GameUiState.Playing(board = gameUseCase.state().board()))
+    private val _uiState: MutableStateFlow<GameUiState> = MutableStateFlow(GameUiState.Loading)
     val uiState: StateFlow<GameUiState> = _uiState
 
-
-    fun manageGame(position: Int) {
-        gameUseCase.play(position = position)
+    fun handleIntents(intent: GameIntents) {
+        when(intent) {
+            GameIntents.Starting -> {
+            }
+            else -> {}
+        }
     }
 }
