@@ -12,6 +12,6 @@ class GameViewModelTest {
     @Test
     fun `should state is started when the view model is instantiated`() {
         gameViewModel.manageGame(position = 1)
-        Assert.assertEquals(GameUiState.Started, gameViewModel.state)
+        Assert.assertEquals(GameUiState.Playing, gameViewModel.uiState.value)
     }
 }
