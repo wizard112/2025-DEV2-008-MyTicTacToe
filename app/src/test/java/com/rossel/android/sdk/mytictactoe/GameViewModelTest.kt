@@ -55,7 +55,7 @@ class GameViewModelTest {
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 8))
         val uiState = gameViewModel.uiState.value
         Assert.assertTrue(uiState is GameUiState.Winner)
-        Assert.assertEquals(Player.X.name, uiState.playerName)
+        Assert.assertEquals(Player.X.name, (uiState as GameUiState.Winner).playerName)
     }
 
     @Test
@@ -68,7 +68,7 @@ class GameViewModelTest {
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 7))
         val uiState = gameViewModel.uiState.value
         Assert.assertTrue(uiState is GameUiState.Winner)
-        Assert.assertEquals(Player.X.name, uiState.playerName)
+        Assert.assertEquals(Player.O.name, (uiState as GameUiState.Winner).playerName)
     }
 
     @Test

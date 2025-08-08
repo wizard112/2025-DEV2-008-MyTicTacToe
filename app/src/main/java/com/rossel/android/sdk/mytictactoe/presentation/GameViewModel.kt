@@ -31,6 +31,10 @@ class GameViewModel: ViewModel() {
         gameUseCase.play(position = position)
         val state = verifierGameUseCase.verify(board = gameUseCase.state().board())
         val playerName = if (state == StateEnum.MATCH_NUL) "" else gameUseCase.players().currentPlayer().name
-        _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = playerName, stateEnum = state) }
+        if (state == StateEnum.FINISHED) {
+            _uiState.update { GameUiState.Winner(playerName = playerName) }
+        } else {
+            _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = playerName, stateEnum = state) }
+        }
     }
 }
