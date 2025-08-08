@@ -1,6 +1,7 @@
 package com.rossel.android.sdk.mytictactoe.presentation
 
 import androidx.lifecycle.ViewModel
+import com.rossel.android.sdk.mytictactoe.domain.enums.StateEnum
 import com.rossel.android.sdk.mytictactoe.domain.interfaces.IGameUseCase
 import com.rossel.android.sdk.mytictactoe.domain.interfaces.IVerifierUseCase
 import com.rossel.android.sdk.mytictactoe.domain.usecase.GameUseCase
@@ -22,10 +23,14 @@ class GameViewModel: ViewModel() {
                 gameUseCase.players().turnTo()
                 _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = gameUseCase.players().currentPlayer().name, stateEnum = verifierGameUseCase.verify(board = gameUseCase.state().board())) }
             }
-            is GameIntents.Moving -> {
-                gameUseCase.play(position = intent.position)
-                _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = gameUseCase.players().currentPlayer().name, stateEnum = verifierGameUseCase.verify(board = gameUseCase.state().board())) }
-            }
+            is GameIntents.Moving -> manageMoving(position = intent.position)
         }
+    }
+
+    private fun manageMoving(position: Int) {
+        gameUseCase.play(position = position)
+        val state = verifierGameUseCase.verify(board = gameUseCase.state().board())
+        val playerName = if (state == StateEnum.MATCH_NUL) "" else gameUseCase.players().currentPlayer().name
+        _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = playerName, stateEnum = state) }
     }
 }
