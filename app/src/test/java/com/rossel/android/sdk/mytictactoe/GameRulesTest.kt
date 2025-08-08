@@ -1,35 +1,36 @@
 package com.rossel.android.sdk.mytictactoe
 
 import com.rossel.android.sdk.mytictactoe.data.exceptions.GameException
-import com.rossel.android.sdk.mytictactoe.domain.entity.Game
+import com.rossel.android.sdk.mytictactoe.domain.usecase.GameUseCase
 import com.rossel.android.sdk.mytictactoe.domain.enums.Player
 import com.rossel.android.sdk.mytictactoe.domain.enums.StateEnum
+import com.rossel.android.sdk.mytictactoe.domain.interfaces.IGameUseCase
 import org.junit.Assert
 import org.junit.Test
 
 class GameRulesTest {
 
-    private val game: Game = Game()
+    private val game: IGameUseCase = GameUseCase()
 
     @Test
     fun `should player X when the game starts`() {
-        game.players.turnTo()
-        Assert.assertEquals(Player.X, game.players.currentPlayer())
+        game.players().turnTo()
+        Assert.assertEquals(Player.X, game.players().currentPlayer())
     }
 
     @Test (expected = GameException::class)
     fun `should an Exception when the player games a positioned position`() {
         game.play(position = 1)
         game.play(position = 1)
-        Assert.assertTrue(game.state.board().contains(element = Player.X))
+        Assert.assertTrue(game.state().board().contains(element = Player.X))
     }
 
     @Test
     fun `should players alternate when the board is not filled`() {
         game.play(position = 1)
-        val turnOne = game.players.currentPlayer()
+        val turnOne = game.players().currentPlayer()
         game.play(position = 2)
-        val turnTwo = game.players.currentPlayer()
+        val turnTwo = game.players().currentPlayer()
         Assert.assertEquals(Player.X, turnOne)
         Assert.assertEquals(Player.O, turnTwo)
     }
@@ -37,14 +38,14 @@ class GameRulesTest {
     @Test
     fun `should position 1 is filled in the board when player X take the position 1`() {
         game.play(position = 1)
-        Assert.assertEquals(Player.X, game.state.board()[1])
+        Assert.assertEquals(Player.X, game.state().board()[1])
     }
 
     @Test
     fun `should position 8 is filled in the board when player O take the position 8`() {
         game.play(position = 1)
         game.play(position = 8)
-        Assert.assertEquals(Player.O, game.state.board()[8])
+        Assert.assertEquals(Player.O, game.state().board()[8])
     }
 
     @Test
@@ -58,7 +59,7 @@ class GameRulesTest {
         game.play(position = 5)
         game.play(position = 7)
         game.play(position = 1)
-        Assert.assertEquals(StateEnum.MATCH_NUL, game.state.verifier().verify(board = game.state.board()))
+        Assert.assertEquals(StateEnum.MATCH_NUL, game.state().verifier().verify(board = game.state().board()))
     }
 
     @Test
@@ -68,7 +69,7 @@ class GameRulesTest {
         game.play(position = 1)
         game.play(position = 6)
         game.play(position = 2)
-        Assert.assertEquals(StateEnum.FINISHED, game.state.verifier().verify(board = game.state.board()))
+        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
     }
 
     @Test
@@ -78,7 +79,7 @@ class GameRulesTest {
         game.play(position = 4)
         game.play(position = 1)
         game.play(position = 5)
-        Assert.assertEquals(StateEnum.FINISHED, game.state.verifier().verify(board = game.state.board()))
+        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
     }
 
     @Test
@@ -88,7 +89,7 @@ class GameRulesTest {
         game.play(position = 7)
         game.play(position = 1)
         game.play(position = 8)
-        Assert.assertEquals(StateEnum.FINISHED, game.state.verifier().verify(board = game.state.board()))
+        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
     }
 
     @Test
@@ -98,7 +99,7 @@ class GameRulesTest {
         game.play(position = 3)
         game.play(position = 2)
         game.play(position = 6)
-        Assert.assertEquals(StateEnum.FINISHED, game.state.verifier().verify(board = game.state.board()))
+        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
     }
 
     @Test
@@ -108,7 +109,7 @@ class GameRulesTest {
         game.play(position = 4)
         game.play(position = 2)
         game.play(position = 7)
-        Assert.assertEquals(StateEnum.FINISHED, game.state.verifier().verify(board = game.state.board()))
+        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
     }
 
     @Test
@@ -118,7 +119,7 @@ class GameRulesTest {
         game.play(position = 4)
         game.play(position = 2)
         game.play(position = 7)
-        Assert.assertEquals(StateEnum.FINISHED, game.state.verifier().verify(board = game.state.board()))
+        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
     }
 
     @Test
@@ -128,7 +129,7 @@ class GameRulesTest {
         game.play(position = 4)
         game.play(position = 2)
         game.play(position = 8)
-        Assert.assertEquals(StateEnum.FINISHED, game.state.verifier().verify(board = game.state.board()))
+        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
     }
 
     @Test
@@ -138,6 +139,6 @@ class GameRulesTest {
         game.play(position = 4)
         game.play(position = 3)
         game.play(position = 6)
-        Assert.assertEquals(StateEnum.FINISHED, game.state.verifier().verify(board = game.state.board()))
+        Assert.assertEquals(StateEnum.FINISHED, game.state().verifier().verify(board = game.state().board()))
     }
 }
