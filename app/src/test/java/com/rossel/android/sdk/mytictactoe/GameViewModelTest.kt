@@ -1,5 +1,6 @@
 package com.rossel.android.sdk.mytictactoe
 
+import com.rossel.android.sdk.mytictactoe.data.exceptions.GameException
 import com.rossel.android.sdk.mytictactoe.domain.enums.Player
 import com.rossel.android.sdk.mytictactoe.domain.enums.StateEnum
 import com.rossel.android.sdk.mytictactoe.presentation.GameIntents
@@ -37,5 +38,11 @@ class GameViewModelTest {
         Assert.assertEquals(Player.X.name, (uiStateOne as GameUiState.Playing).playerName)
         Assert.assertEquals(Player.O.name, (uiStateTwo as GameUiState.Playing).playerName)
         Assert.assertEquals(StateEnum.NOT_FINISHED, uiStateOne.stateEnum)
+    }
+
+    @Test(expected = GameException::class)
+    fun `should catch GameException when the player tries to taken a position already filled`() {
+        gameViewModel.handleIntents(intent = GameIntents.Moving(position = 1))
+        gameViewModel.handleIntents(intent = GameIntents.Moving(position = 1))
     }
 }
