@@ -4,15 +4,11 @@ import com.rossel.android.sdk.mytictactoe.data.exceptions.GameException
 import com.rossel.android.sdk.mytictactoe.domain.constants.FIELD_ALREADY_TAKEN
 import com.rossel.android.sdk.mytictactoe.domain.enums.Player
 import com.rossel.android.sdk.mytictactoe.domain.interfaces.IState
-import com.rossel.android.sdk.mytictactoe.domain.interfaces.IVerifier
 
 class GameState: IState {
     private val mBoard: MutableList<Player> = MutableList(9, { Player.EMPTY })
-    val verifier: IVerifier = VerifierGame()
 
     override fun board(): List<Player> = this.mBoard
-
-    override fun verifier(): IVerifier = this.verifier
 
     override fun moveTo(position: Int, player: Player) {
         if (mBoard[position] != Player.EMPTY)
