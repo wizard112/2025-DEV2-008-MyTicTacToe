@@ -7,13 +7,12 @@ import com.rossel.android.sdk.mytictactoe.domain.usecase.GameUseCase
 import com.rossel.android.sdk.mytictactoe.domain.usecase.VerifierGameUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 
 class GameViewModel: ViewModel() {
     private val gameUseCase: IGameUseCase = GameUseCase()
     private val verifierGameUseCase: IVerifierUseCase = VerifierGameUseCase()
 
-    private val _uiState: MutableStateFlow<GameUiState> = MutableStateFlow(GameUiState.Playing)
+    private val _uiState: MutableStateFlow<GameUiState> = MutableStateFlow(GameUiState.Playing(board = gameUseCase.state().board()))
     val uiState: StateFlow<GameUiState> = _uiState
 
 
