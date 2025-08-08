@@ -72,5 +72,5 @@ clean architecture blog - uncle bob : https://blog.cleancoder.com/uncle-bob/2012
 conventional commit : https://medium.com/@noriller/docs-conventional-commits-feat-fix-refactor-which-is-which-531614fcb65a
 example project clean architecture with MVI : https://medium.com/@sharmapraveen91/mastering-mvi-clean-architecture-for-android-a-comprehensive-guide-with-clean-code-and-tdd-best-98272fabe4f2
 Examples README for Android project : https://gist.github.com/framundo/fb7d75a0176f7be2b02e
-Kotlin Doc sequence - any : https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/any.html
-Kotlin collections : https://kotlinlang.org/docs/collections-overview.html
+Kotlin Doc Collections - any : https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/any.html
+Kotlin Doc collections in general : https://kotlinlang.org/docs/collections-overview.html
