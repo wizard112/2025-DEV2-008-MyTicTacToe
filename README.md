@@ -43,7 +43,14 @@ Layer Presentation/UI
  - handle the interaction with UI
 
 ## Layer Presentation/UI
-...
+
+I try to implement he design patter MVI - Model View Intent.
+This pattern uses a unidirectional data flow, separation of concerns and immutability : 
+
+- Component Intent represents the interaction and user actions like click button, it communicates teh user's actions.
+- Component Model represents the single source of truth, it has the logic and data and it manages the state.
+- Component View represents the UI renderer, it displays the app's state to the user
+
 
 ### Principles
 I tried to apply the SOLID principles.
@@ -74,3 +81,4 @@ example project clean architecture with MVI : https://medium.com/@sharmapraveen9
 Examples README for Android project : https://gist.github.com/framundo/fb7d75a0176f7be2b02e
 Kotlin Doc Collections - any : https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/any.html
 Kotlin Doc collections in general : https://kotlinlang.org/docs/collections-overview.html
+Medium - Android Project with MVI : https://medium.com/@mohammedkhudair57/mvi-architecture-pattern-in-android-0046bf9b8a2e
