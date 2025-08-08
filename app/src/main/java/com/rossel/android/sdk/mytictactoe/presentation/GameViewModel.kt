@@ -10,10 +10,9 @@ class GameViewModel: ViewModel() {
     private val gameUseCase: IGameUseCase = GameUseCase()
     private val verifierGameUseCase: IVerifierUseCase = VerifierGameUseCase()
 
-    var state = "Started"
+    var state: GameUiState = GameUiState.Started
 
     fun manageGame(position: Int) {
         gameUseCase.play(position = position)
-        state = verifierGameUseCase.verify(board = gameUseCase.state().board()).name
     }
 }
