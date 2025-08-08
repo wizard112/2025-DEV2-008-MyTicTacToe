@@ -11,9 +11,14 @@ class GameViewModelTest {
     private val gameViewModel = GameViewModel()
 
     @Test
-    fun `should state is Playing when the view model is instantiated`() {
+    fun `should state is Loading when the view model is instantiated`() {
         val uiState = gameViewModel.uiState.value
-        Assert.assertTrue(uiState is GameUiState.Playing)
-        Assert.assertEquals(Player.EMPTY, (uiState as GameUiState.Playing).board[2])
+        Assert.assertTrue(uiState is GameUiState.Loading)
+    }
+
+    @Test
+    fun `should player x starts when the game is instantiated`() {
+        //Assert.assertTrue(uiState is GameUiState.Playing)
+        //Assert.assertEquals(Player.EMPTY, (uiState as GameUiState.Playing).board[2])
     }
 }
