@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.rossel.android.sdk.mytictactoe"
+    namespace = "com.bnp.android.kata.mytictactoe"
     compileSdk = 36
 
     defaultConfig {
