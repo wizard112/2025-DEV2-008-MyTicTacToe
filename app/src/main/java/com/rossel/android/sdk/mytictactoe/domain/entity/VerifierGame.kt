@@ -3,37 +3,8 @@ package com.rossel.android.sdk.mytictactoe.domain.entity
 import com.rossel.android.sdk.mytictactoe.domain.enums.Player
 import com.rossel.android.sdk.mytictactoe.domain.enums.StateEnum
 import com.rossel.android.sdk.mytictactoe.domain.interfaces.IVerifier
+import com.rossel.android.sdk.mytictactoe.domain.interfaces.IVerifierRow
 
-interface IVerifierRow {
-    fun verifierRow(board: List<Player>, player: Player): Boolean
-}
-class VerifierHorizontalRow: IVerifierRow{
-    override fun verifierRow(board: List<Player>, player: Player): Boolean {
-        return (board[0] == player && board[1] == player && board[2] == player)
-                || (board[3] == player && board[4] == player && board[5] == player)
-                || (board[6] == player && board[7] == player && board[8] == player)
-    }
-}
-
-class VerifierVerticalRow: IVerifierRow {
-    override fun verifierRow(board: List<Player>, player: Player): Boolean {
-        return (board[0] == player && board[3] == player && board[6] == player)
-                || (board[1] == player && board[4] == player && board[7] == player)
-                || (board[2] == player && board[5] == player && board[8] == player)
-    }
-}
-
-class VerifierAntidiagonalRow: IVerifierRow {
-    override fun verifierRow(board: List<Player>, player: Player): Boolean {
-        return (board[0] == player && board[4] == player && board[8] == player)
-    }
-}
-
-class VerifierDiagonalRow: IVerifierRow {
-    override fun verifierRow(board: List<Player>, player: Player): Boolean {
-        return (board[2] == player && board[4] == player && board[6] == player)
-    }
-}
 
 class VerifierGame: IVerifier {
     private val verifierHorizontalRow: IVerifierRow = VerifierHorizontalRow()
