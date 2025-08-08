@@ -36,6 +36,6 @@ class GameViewModelTest {
         Assert.assertTrue(uiStateTwo is GameUiState.Playing)
         Assert.assertEquals(Player.X.name, (uiStateOne as GameUiState.Playing).playerName)
         Assert.assertEquals(Player.O.name, (uiStateTwo as GameUiState.Playing).playerName)
-        Assert.assertEquals(StateEnum.NOT_FINISHED, uiStateOne.state)
+        Assert.assertEquals(StateEnum.NOT_FINISHED, uiStateOne.stateEnum)
     }
 }

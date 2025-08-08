@@ -1,6 +1,7 @@
 package com.rossel.android.sdk.mytictactoe.presentation
 
 import androidx.lifecycle.ViewModel
+import com.rossel.android.sdk.mytictactoe.domain.enums.StateEnum
 import com.rossel.android.sdk.mytictactoe.domain.interfaces.IGameUseCase
 import com.rossel.android.sdk.mytictactoe.domain.interfaces.IVerifierUseCase
 import com.rossel.android.sdk.mytictactoe.domain.usecase.GameUseCase
@@ -20,11 +21,11 @@ class GameViewModel: ViewModel() {
         when(intent) {
             GameIntents.Starting -> {
                 gameUseCase.players().turnTo()
-                _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = gameUseCase.players().currentPlayer().name) }
+                _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = gameUseCase.players().currentPlayer().name, stateEnum = verifierGameUseCase.verify(board = gameUseCase.state().board())) }
             }
             is GameIntents.Moving -> {
                 gameUseCase.play(position = intent.position)
-                _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = gameUseCase.players().currentPlayer().name) }
+                _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = gameUseCase.players().currentPlayer().name, stateEnum = verifierGameUseCase.verify(board = gameUseCase.state().board())) }
             }
         }
     }
