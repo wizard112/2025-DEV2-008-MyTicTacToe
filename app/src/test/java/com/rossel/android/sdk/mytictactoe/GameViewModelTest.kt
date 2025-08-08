@@ -37,7 +37,6 @@ class GameViewModelTest {
         Assert.assertTrue(uiStateTwo is GameUiState.Playing)
         Assert.assertEquals(Player.X.name, (uiStateOne as GameUiState.Playing).playerName)
         Assert.assertEquals(Player.O.name, (uiStateTwo as GameUiState.Playing).playerName)
-        Assert.assertEquals(StateEnum.NOT_FINISHED, uiStateOne.stateEnum)
     }
 
     @Test(expected = GameException::class)
@@ -83,8 +82,6 @@ class GameViewModelTest {
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 7))
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 1))
         val uiState = gameViewModel.uiState.value
-        Assert.assertTrue(uiState is GameUiState.Playing)
-        Assert.assertEquals(StateEnum.MATCH_NUL, (uiState as GameUiState.Playing).stateEnum)
-        Assert.assertEquals("", uiState.playerName)
+        Assert.assertTrue(uiState is GameUiState.MatchNul)
     }
 }
