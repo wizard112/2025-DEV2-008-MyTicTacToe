@@ -19,12 +19,14 @@ class GameViewModel: ViewModel() {
 
     fun handleIntents(intent: GameIntents) {
         when(intent) {
-            GameIntents.Starting -> {
-                gameUseCase.players().turnTo()
-                _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = gameUseCase.players().currentPlayer().name) }
-            }
+            GameIntents.Starting -> manageStarting()
             is GameIntents.Moving -> manageMoving(position = intent.position)
         }
+    }
+
+    private fun manageStarting() {
+        gameUseCase.players().turnTo()
+        _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = gameUseCase.players().currentPlayer().name) }
     }
 
     private fun manageMoving(position: Int) {
