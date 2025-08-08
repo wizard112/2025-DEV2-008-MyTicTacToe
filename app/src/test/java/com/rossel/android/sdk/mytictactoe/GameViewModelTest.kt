@@ -2,7 +2,6 @@ package com.rossel.android.sdk.mytictactoe
 
 import com.rossel.android.sdk.mytictactoe.data.exceptions.GameException
 import com.rossel.android.sdk.mytictactoe.domain.enums.Player
-import com.rossel.android.sdk.mytictactoe.domain.enums.StateEnum
 import com.rossel.android.sdk.mytictactoe.presentation.GameIntents
 import com.rossel.android.sdk.mytictactoe.presentation.GameUiState
 import com.rossel.android.sdk.mytictactoe.presentation.GameViewModel

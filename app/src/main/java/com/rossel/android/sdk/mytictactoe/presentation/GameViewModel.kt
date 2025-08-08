@@ -21,7 +21,7 @@ class GameViewModel: ViewModel() {
         when(intent) {
             GameIntents.Starting -> {
                 gameUseCase.players().turnTo()
-                _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = gameUseCase.players().currentPlayer().name, stateEnum = verifierGameUseCase.verify(board = gameUseCase.state().board())) }
+                _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = gameUseCase.players().currentPlayer().name) }
             }
             is GameIntents.Moving -> manageMoving(position = intent.position)
         }
@@ -31,10 +31,10 @@ class GameViewModel: ViewModel() {
         gameUseCase.play(position = position)
         val state = verifierGameUseCase.verify(board = gameUseCase.state().board())
         val playerName = if (state == StateEnum.MATCH_NUL) "" else gameUseCase.players().currentPlayer().name
-        if (state == StateEnum.FINISHED) {
-            _uiState.update { GameUiState.Winner(playerName = playerName) }
-        } else {
-            _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = playerName, stateEnum = state) }
+        when(state) {
+            StateEnum.FINISHED -> _uiState.update { GameUiState.Winner(playerName = playerName) }
+            StateEnum.NOT_FINISHED -> _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = playerName) }
+            StateEnum.MATCH_NUL -> _uiState.update { GameUiState.MatchNul }
         }
     }
 }
