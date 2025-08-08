@@ -25,3 +25,4 @@ I try to apply the Gitflow workflow :
 
 ## Sources
 Gitflow workflow : https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+clean architecture blog - uncle bob : https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
