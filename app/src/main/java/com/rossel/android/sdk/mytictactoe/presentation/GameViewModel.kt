@@ -22,7 +22,10 @@ class GameViewModel: ViewModel() {
                 gameUseCase.players().turnTo()
                 _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = gameUseCase.players().currentPlayer().name) }
             }
-            else -> {}
+            is GameIntents.Moving -> {
+                gameUseCase.play(position = intent.position)
+                _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = gameUseCase.players().currentPlayer().name) }
+            }
         }
     }
 }
