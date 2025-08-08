@@ -15,14 +15,16 @@ class VerifierGameUseCase: IVerifierUseCase {
     private val verifierAntidiagonalRow: IVerifierRow = VerifierAntidiagonalRow()
     private val verifierDiagonalRow: IVerifierRow = VerifierDiagonalRow()
 
-    override fun verify(board: List<Player>): StateEnum = if (verifierHorizontalRow.verifierRow(board = board, player = Player.X)
-        || verifierHorizontalRow.verifierRow(board = board, player = Player.O)
-        || verifierVerticalRow.verifierRow(board = board, player = Player.X)
-        || verifierVerticalRow.verifierRow(board = board, player = Player.O)
-        || verifierAntidiagonalRow.verifierRow(board = board, player = Player.X)
-        || verifierAntidiagonalRow.verifierRow(board = board, player = Player.O)
-        || verifierDiagonalRow.verifierRow(board = board, player = Player.X)
-        || verifierDiagonalRow.verifierRow(board = board, player = Player.O)) {
-        StateEnum.FINISHED
-    } else StateEnum.MATCH_NUL
+    override fun verify(board: List<Player>): StateEnum = when {
+        verifierHorizontalRow.verifierRow(board = board, player = Player.X)
+                || verifierHorizontalRow.verifierRow(board = board, player = Player.O)
+                || verifierVerticalRow.verifierRow(board = board, player = Player.X)
+                || verifierVerticalRow.verifierRow(board = board, player = Player.O)
+                || verifierAntidiagonalRow.verifierRow(board = board, player = Player.X)
+                || verifierAntidiagonalRow.verifierRow(board = board, player = Player.O)
+                || verifierDiagonalRow.verifierRow(board = board, player = Player.X)
+                || verifierDiagonalRow.verifierRow(board = board, player = Player.O) -> StateEnum.FINISHED
+        board.filter { player -> player == Player.X || player == Player.O }.size == 9 -> StateEnum.MATCH_NUL
+        else -> StateEnum.NOT_FINISHED
+    }
 }

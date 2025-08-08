@@ -1,3 +1,3 @@
 package com.rossel.android.sdk.mytictactoe.domain.enums
 
-enum class StateEnum { MATCH_NUL, FINISHED }
+enum class StateEnum { MATCH_NUL, FINISHED, NOT_FINISHED }

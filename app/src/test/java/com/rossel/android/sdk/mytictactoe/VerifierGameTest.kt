@@ -117,4 +117,11 @@ class VerifierGameTest {
         board[1] = Player.X
         Assert.assertEquals(StateEnum.MATCH_NUL, verifier.verify(board = board))
     }
+
+    @Test
+    fun `should not finished when all the nine squares are not filled`() {
+        board[0] = Player.X
+        board[2] = Player.O
+        Assert.assertEquals(StateEnum.NOT_FINISHED, verifier.verify(board = board))
+    }
 }
