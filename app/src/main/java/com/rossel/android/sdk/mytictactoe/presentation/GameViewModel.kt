@@ -7,6 +7,7 @@ import com.rossel.android.sdk.mytictactoe.domain.usecase.GameUseCase
 import com.rossel.android.sdk.mytictactoe.domain.usecase.VerifierGameUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 
 class GameViewModel: ViewModel() {
     private val gameUseCase: IGameUseCase = GameUseCase()
@@ -18,6 +19,8 @@ class GameViewModel: ViewModel() {
     fun handleIntents(intent: GameIntents) {
         when(intent) {
             GameIntents.Starting -> {
+                gameUseCase.players().turnTo()
+                _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = gameUseCase.players().currentPlayer().name) }
             }
             else -> {}
         }
