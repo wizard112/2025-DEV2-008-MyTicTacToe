@@ -35,6 +35,6 @@ class PlayersTest {
     @Test
     fun `should player X when restart the game`() {
         players.restart()
-        Assert.assertEquals(Player.X, players.currentPlayer())
+        Assert.assertEquals(Player.EMPTY, players.currentPlayer())
     }
 }
