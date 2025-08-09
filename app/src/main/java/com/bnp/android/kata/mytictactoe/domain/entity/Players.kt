@@ -13,7 +13,7 @@ class Players: IPlayer {
     override fun playerO(): Player = playerO
     override fun currentPlayer(): Player = current
     override fun restart() {
-        current = playerX
+        current = Player.EMPTY
     }
     override fun turnTo() {
         current = when(current) {
