@@ -23,8 +23,8 @@ class GameViewModel: ViewModel() {
         when(intent) {
             GameIntents.Starting -> manageStarting()
             GameIntents.Restarting -> {
-                gameUseCase.state().restart()
-                gameUseCase.players().restart()
+                gameUseCase.state().reset()
+                gameUseCase.players().reset()
                 manageStarting()
             }
             is GameIntents.Moving -> manageMoving(position = intent.position)

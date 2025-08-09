@@ -1,6 +1,5 @@
 package com.bnp.android.kata.mytictactoe
 
-import com.bnp.android.kata.mytictactoe.data.exceptions.GameException
 import com.bnp.android.kata.mytictactoe.domain.enums.Player
 import com.bnp.android.kata.mytictactoe.presentation.GameIntents
 import com.bnp.android.kata.mytictactoe.presentation.GameViewModel
@@ -30,14 +29,15 @@ class GameViewModelTest {
         val uiStateOne = gameViewModel.uiState.value
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 2))
         val uiStateTwo = gameViewModel.uiState.value
-        Assert.assertEquals(Player.X.name, uiStateOne.playerName)
-        Assert.assertEquals(Player.O.name, uiStateTwo.playerName)
+        Assert.assertEquals(Player.O.name, uiStateOne.playerName)
+        Assert.assertEquals(Player.X.name, uiStateTwo.playerName)
     }
 
-    @Test(expected = GameException::class)
-    fun `should catch GameException when the player tries to taken a position already filled`() {
+    @Test
+    fun `should can do nothing when the player O tries to taken a position already filled by player X`() {
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 1))
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 1))
+        Assert.assertEquals(Player.X, gameViewModel.uiState.value.board[1])
     }
 
     @Test
