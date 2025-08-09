@@ -12,7 +12,7 @@ import org.junit.Test
 class GameRulesTest {
 
     private val game: IGameUseCase = GameUseCase(columns = 3, rows = 3)
-    private val verifier: IVerifierUseCase = VerifierGameUseCase()
+    //private val verifier: IVerifierUseCase = VerifierGameUseCase()
 
     @Test
     fun `should player X when the game starts`() {

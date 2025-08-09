@@ -5,6 +5,7 @@ import com.bnp.android.kata.mytictactoe.domain.constants.FIELD_ALREADY_TAKEN
 import com.bnp.android.kata.mytictactoe.domain.enums.Player
 import com.bnp.android.kata.mytictactoe.domain.interfaces.IState
 
+//TODO remove !
 class GameState: IState {
     private val mBoard: MutableList<Player> = MutableList(9, { Player.EMPTY })
 
