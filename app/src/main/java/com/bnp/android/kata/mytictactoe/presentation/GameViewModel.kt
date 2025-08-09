@@ -52,7 +52,7 @@ class GameViewModel: ViewModel() {
                     _uiState.value = GameUiState.Playing(board = gameUseCase.state().board(), playerName = playerName(stateEnum = state))
                 }
                 StateEnum.MATCH_NUL -> {
-                    //_uiState.update { it.copy(matchNul = true) }
+                    _uiState.value = GameUiState.MatchNull
                 }
             }
         } catch (ex: GameException) {
