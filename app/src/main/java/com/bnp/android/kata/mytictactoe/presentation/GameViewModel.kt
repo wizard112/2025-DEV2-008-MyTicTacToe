@@ -15,19 +15,24 @@ class GameViewModel: ViewModel() {
     private val gameUseCase: IGameUseCase = GameUseCase()
     private val verifierGameUseCase: IVerifierUseCase = VerifierGameUseCase()
 
-    private val _uiState: MutableStateFlow<GameUiState> = MutableStateFlow(GameUiState.Loading)
+    private val _uiState: MutableStateFlow<GameUiState> = MutableStateFlow(GameUiState(loading = true))
     val uiState: StateFlow<GameUiState> = _uiState.asStateFlow()
 
     fun handleIntents(intent: GameIntents) {
         when(intent) {
             GameIntents.Starting -> manageStarting()
+            GameIntents.Restarting -> {
+                gameUseCase.state().restart()
+                manageStarting()
+            }
             is GameIntents.Moving -> manageMoving(position = intent.position)
         }
     }
 
     private fun manageStarting() {
-        gameUseCase.players().turnTo()
-        _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = gameUseCase.players().currentPlayer().name) }
+        _uiState.update {
+            it.copy(board = gameUseCase.state().board(), playerName = gameUseCase.players().playerX().name.uppercase(), loading = false, winner = false, matchNul = false)
+        }
     }
 
     private fun manageMoving(position: Int) {
@@ -35,9 +40,15 @@ class GameViewModel: ViewModel() {
         val state = verifierGameUseCase.verify(board = gameUseCase.state().board())
         val playerName = if (state == StateEnum.MATCH_NUL) "" else gameUseCase.players().currentPlayer().name
         when(state) {
-            StateEnum.FINISHED -> _uiState.update { GameUiState.Winner(playerName = playerName) }
-            StateEnum.NOT_FINISHED -> _uiState.update { GameUiState.Playing(board = gameUseCase.state().board(), playerName = playerName) }
-            StateEnum.MATCH_NUL -> _uiState.update { GameUiState.MatchNul }
+            StateEnum.FINISHED -> {
+                _uiState.update { it.copy(playerName = playerName, winner = true) }
+            }
+            StateEnum.NOT_FINISHED -> {
+                _uiState.update { it.copy(board = gameUseCase.state().board(), playerName = playerName, loading = false) }
+            }
+            StateEnum.MATCH_NUL -> {
+                _uiState.update { it.copy(matchNul = true) }
+            }
         }
     }
 }
