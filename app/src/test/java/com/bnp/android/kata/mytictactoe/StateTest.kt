@@ -105,4 +105,19 @@ class StateTest {
         state.moveTo(position = 1, player = Player.X)
         Assert.assertEquals(StateEnum.MATCH_NUL, verifier.verify(board = state.board()))
     }
+
+    @Test
+    fun `should has player empty when restart the game`() {
+        state.moveTo(position = 0, player = Player.X)
+        state.moveTo(position = 2, player = Player.O)
+        state.moveTo(position = 6, player = Player.X)
+        state.moveTo(position = 3, player = Player.O)
+        state.moveTo(position = 8, player = Player.X)
+        state.moveTo(position = 4, player = Player.O)
+        state.moveTo(position = 5, player = Player.X)
+        state.moveTo(position = 7, player = Player.O)
+        state.moveTo(position = 1, player = Player.X)
+        state.reset()
+        Assert.assertEquals(9,state.board().filter { player -> player == Player.EMPTY }.size)
+    }
 }
