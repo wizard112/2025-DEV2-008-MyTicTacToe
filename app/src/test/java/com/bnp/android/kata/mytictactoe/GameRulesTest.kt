@@ -4,7 +4,6 @@ import com.bnp.android.kata.mytictactoe.data.exceptions.GameException
 import com.bnp.android.kata.mytictactoe.domain.usecase.VerifierGameUseCase
 import com.bnp.android.kata.mytictactoe.domain.usecase.GameUseCase
 import com.bnp.android.kata.mytictactoe.domain.enums.Player
-import com.bnp.android.kata.mytictactoe.domain.enums.StateEnum
 import com.bnp.android.kata.mytictactoe.domain.interfaces.IGameUseCase
 import com.bnp.android.kata.mytictactoe.domain.interfaces.IVerifierUseCase
 import org.junit.Assert
@@ -13,20 +12,20 @@ import org.junit.Test
 class GameRulesTest {
 
     private val game: IGameUseCase = GameUseCase(columns = 3, rows = 3)
-    //private val verifier: IVerifierUseCase = VerifierGameUseCase()
+    private val verifier: IVerifierUseCase = VerifierGameUseCase()
 
     @Test
     fun `should player X when the game starts`() {
         game.play(column = 0, row = 1, player = Player.X)
         val position = game.board()[0]?.get(1)
         val result = game.board().values.filter { list ->
-            list.filter { player ->  player == Player.X }.size == 1
+            list.filter { player -> player == Player.X }.size == 1
         }.size
         Assert.assertEquals(Player.X, position)
         Assert.assertEquals(1, result)
     }
 
-    @Test (expected = GameException::class)
+    @Test(expected = GameException::class)
     fun `should nothing when the player O tries to play at the same position that player X`() {
         game.play(column = 0, row = 1, player = Player.X)
         game.play(column = 0, row = 1, player = Player.O)
@@ -34,29 +33,33 @@ class GameRulesTest {
         Assert.assertEquals(Player.X, position)
     }
 
-    /*@Test
+    @Test
     fun `should players alternate when the board is not filled`() {
-        game.play(position = 1)
-        val turnOne = game.players().currentPlayer()
-        game.play(position = 2)
-        val turnTwo = game.players().currentPlayer()
-        Assert.assertEquals(Player.X, turnOne)
-        Assert.assertEquals(Player.O, turnTwo)
+        game.play(column = 0, row = 1, player = Player.X)
+        game.play(column = 0, row = 2, player = Player.O)
+        val positionPlayerX = game.board()[0]?.get(1)
+        val positionPlayerO = game.board()[0]?.get(2)
+        Assert.assertEquals(Player.X, positionPlayerX)
+        Assert.assertEquals(Player.O, positionPlayerO)
     }
 
     @Test
     fun `should position 1 is filled in the board when player X take the position 1`() {
-        game.play(position = 1)
-        Assert.assertEquals(Player.X, game.state().board()[1])
+        game.play(column = 0, row = 1, player = Player.X)
+        val position = game.board()[0]?.get(1)
+        Assert.assertEquals(Player.X, position)
     }
 
     @Test
     fun `should position 8 is filled in the board when player O take the position 8`() {
-        game.play(position = 1)
-        game.play(position = 8)
-        Assert.assertEquals(Player.O, game.state().board()[8])
+        game.play(column = 0, row = 1, player = Player.X)
+        game.play(column = 2, row = 2, player = Player.O)
+        val positionPlayerO = game.board()[2]?.get(2)
+        Assert.assertEquals(Player.O, positionPlayerO)
     }
 
+}
+    /*
     @Test
     fun `should match nul when nine squares are filled`() {
         game.play(position = 0)
@@ -71,7 +74,7 @@ class GameRulesTest {
         Assert.assertEquals(StateEnum.MATCH_NUL, verifier.verify(board = game.state().board()))
     }
 
-    @Test
+    /*@Test
     fun `should finished when player has three in row of first horizontal`() {
         game.play(position = 0)
         game.play(position = 3)
@@ -149,5 +152,5 @@ class GameRulesTest {
         game.play(position = 3)
         game.play(position = 6)
         Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = game.state().board()))
-    }*/
-}
+    }
+     */
