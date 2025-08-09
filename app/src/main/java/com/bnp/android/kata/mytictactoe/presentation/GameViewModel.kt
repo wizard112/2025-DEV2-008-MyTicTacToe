@@ -45,6 +45,7 @@ class GameViewModel: ViewModel() {
             when(state) {
                 StateEnum.FINISHED -> {
                     //_uiState.update { it.copy(playerName = gameUseCase.players().currentPlayer().name, winner = true) }
+                    _uiState.value = GameUiState.Winner(winnerName = gameUseCase.players().currentPlayer().name)
                 }
                 StateEnum.NOT_FINISHED -> {
                    // _uiState.update { it.copy(board = gameUseCase.state().board(), playerName = playerName(stateEnum = state)) }
