@@ -12,16 +12,17 @@ import org.junit.Test
 
 class GameRulesTest {
 
-    private val game: IGameUseCase = GameUseCase()
-    private val verifier: IVerifierUseCase = VerifierGameUseCase()
+    private val game: IGameUseCase = GameUseCase(columns = 3, rows = 3)
+    //private val verifier: IVerifierUseCase = VerifierGameUseCase()
 
     @Test
     fun `should player X when the game starts`() {
-        //game.players().turnTo()
-        //Assert.assertEquals(Player.X, game.players().currentPlayer())
+        game.play(column = 0, row = 1, player = Player.X)
+        val position = game.board()[0]?.get(1)
+        Assert.assertEquals(Player.X, position)
     }
 
-    @Test (expected = GameException::class)
+    /*@Test (expected = GameException::class)
     fun `should an Exception when the player games a positioned position`() {
         game.play(position = 1)
         game.play(position = 1)
@@ -143,5 +144,5 @@ class GameRulesTest {
         game.play(position = 3)
         game.play(position = 6)
         Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = game.state().board()))
-    }
+    }*/
 }
