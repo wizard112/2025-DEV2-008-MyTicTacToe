@@ -1,6 +1,7 @@
 package com.bnp.android.kata.mytictactoe.presentation
 
 import androidx.lifecycle.ViewModel
+import com.bnp.android.kata.mytictactoe.data.exceptions.GameException
 import com.bnp.android.kata.mytictactoe.domain.enums.StateEnum
 import com.bnp.android.kata.mytictactoe.domain.interfaces.IGameUseCase
 import com.bnp.android.kata.mytictactoe.domain.interfaces.IVerifierUseCase
@@ -23,6 +24,7 @@ class GameViewModel: ViewModel() {
             GameIntents.Starting -> manageStarting()
             GameIntents.Restarting -> {
                 gameUseCase.state().restart()
+                gameUseCase.players().restart()
                 manageStarting()
             }
             is GameIntents.Moving -> manageMoving(position = intent.position)
@@ -31,24 +33,34 @@ class GameViewModel: ViewModel() {
 
     private fun manageStarting() {
         _uiState.update {
-            it.copy(board = gameUseCase.state().board(), playerName = gameUseCase.players().playerX().name.uppercase(), loading = false, winner = false, matchNul = false)
+            it.copy(board = gameUseCase.state().board(), playerName = gameUseCase.players().playerX().name, loading = false, matchNul = false, winner = false)
         }
     }
 
     private fun manageMoving(position: Int) {
-        gameUseCase.play(position = position)
-        val state = verifierGameUseCase.verify(board = gameUseCase.state().board())
-        val playerName = if (state == StateEnum.MATCH_NUL) "" else gameUseCase.players().currentPlayer().name
-        when(state) {
-            StateEnum.FINISHED -> {
-                _uiState.update { it.copy(playerName = playerName, winner = true) }
+        try {
+            gameUseCase.play(position = position)
+            val state = verifierGameUseCase.verify(board = gameUseCase.state().board())
+            when(state) {
+                StateEnum.FINISHED -> {
+                    _uiState.update { it.copy(playerName = gameUseCase.players().currentPlayer().name, winner = true) }
+                }
+                StateEnum.NOT_FINISHED -> {
+                    _uiState.update { it.copy(board = gameUseCase.state().board(), playerName = playerName(stateEnum = state)) }
+                }
+                StateEnum.MATCH_NUL -> {
+                    _uiState.update { it.copy(matchNul = true) }
+                }
             }
-            StateEnum.NOT_FINISHED -> {
-                _uiState.update { it.copy(board = gameUseCase.state().board(), playerName = playerName, loading = false) }
-            }
-            StateEnum.MATCH_NUL -> {
-                _uiState.update { it.copy(matchNul = true) }
-            }
+        } catch (ex: GameException) {
+            ex.printStackTrace()
         }
     }
+
+    private fun playerName(stateEnum: StateEnum): String = if (stateEnum == StateEnum.MATCH_NUL) ""
+    else
+        if (gameUseCase.players().currentPlayer() == gameUseCase.players().playerX())
+            gameUseCase.players().playerO().name
+        else
+            gameUseCase.players().playerX().name
 }
