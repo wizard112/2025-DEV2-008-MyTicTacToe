@@ -1,5 +1,9 @@
 package com.bnp.android.kata.mytictactoe.domain.interfaces
 
-interface IGameUseCase: IGameState, IGamePlayers {
-    fun play(position: Int)
+import com.bnp.android.kata.mytictactoe.domain.enums.Player
+
+interface IGameUseCase/*: IGameState, IGamePlayers*/ {
+    fun play(column: Int, row: Int, player: Player)
+    fun reset()
+    fun board(): Map<Int, List<Player>>
 }
