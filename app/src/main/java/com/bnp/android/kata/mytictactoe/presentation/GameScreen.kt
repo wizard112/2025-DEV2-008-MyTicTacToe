@@ -40,7 +40,7 @@ fun GameScreen(viewModel: GameViewModel) {
 
     ConstraintLayout(
         constraintSet = gameScreenConstraintSet(),
-        modifier = Modifier.fillMaxSize()) {
+        modifier = Modifier.fillMaxSize().background(color = Color.White)) {
         when(uiState) {
             is GameUiState.Winner -> {
                 StateText(txt = stringResource(R.string.game_winner, (uiState as GameUiState.Winner).winnerName.uppercase()),
