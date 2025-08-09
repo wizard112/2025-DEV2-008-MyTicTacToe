@@ -57,7 +57,7 @@ class GameViewModelTest {
         Assert.assertEquals(Player.X.name, (uiState as GameUiState.Winner).winnerName)
     }
 
-    /*@Test
+    @Test
     fun `should game is over when the player O wins`() {
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 0))
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 1))
@@ -66,8 +66,8 @@ class GameViewModelTest {
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 5))
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 7))
         val uiState = gameViewModel.uiState.value
-        Assert.assertTrue(uiState.winner)
-        Assert.assertEquals(Player.O.name, uiState.playerName)
+        Assert.assertTrue(uiState is GameUiState.Winner)
+        Assert.assertEquals(Player.O.name, (uiState as GameUiState.Winner).winnerName)
     }
 
     @Test
@@ -82,6 +82,6 @@ class GameViewModelTest {
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 7))
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 1))
         val uiState = gameViewModel.uiState.value
-        Assert.assertTrue(uiState.matchNul)
-    }*/
+        Assert.assertTrue(uiState is GameUiState.MatchNull)
+    }
 }
