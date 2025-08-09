@@ -25,21 +25,24 @@ class GameViewModelTest {
         Assert.assertEquals(Player.X.name, (uiState as GameUiState.Playing).playerName)
     }
 
-    /*@Test
+    @Test
     fun `should positions are filled when the players play`() {
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 0))
         val uiStateOne = gameViewModel.uiState.value
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 2))
         val uiStateTwo = gameViewModel.uiState.value
-        Assert.assertEquals(Player.O.name, uiStateOne.playerName)
-        Assert.assertEquals(Player.X.name, uiStateTwo.playerName)
+        Assert.assertTrue(uiStateOne is GameUiState.Playing)
+        Assert.assertTrue(uiStateTwo is GameUiState.Playing)
+        Assert.assertEquals(Player.O.name, (uiStateOne as GameUiState.Playing).playerName)
+        Assert.assertEquals(Player.X.name, (uiStateTwo as GameUiState.Playing).playerName)
     }
 
     @Test
     fun `should can do nothing when the player O tries to taken a position already filled by player X`() {
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 1))
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 1))
-        Assert.assertEquals(Player.X, gameViewModel.uiState.value.board[1])
+        Assert.assertTrue(gameViewModel.uiState.value is GameUiState.Playing)
+        Assert.assertEquals(Player.X, (gameViewModel.uiState.value as GameUiState.Playing).board[1])
     }
 
     @Test
@@ -50,11 +53,11 @@ class GameViewModelTest {
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 2))
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 8))
         val uiState = gameViewModel.uiState.value
-        Assert.assertTrue(uiState.winner)
-        Assert.assertEquals(Player.X.name, uiState.playerName)
+        Assert.assertTrue(uiState is GameUiState.Winner)
+        Assert.assertEquals(Player.X.name, (uiState as GameUiState.Winner).winnerName)
     }
 
-    @Test
+    /*@Test
     fun `should game is over when the player O wins`() {
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 0))
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 1))
