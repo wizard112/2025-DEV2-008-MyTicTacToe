@@ -19,17 +19,22 @@ class GameRulesTest {
     fun `should player X when the game starts`() {
         game.play(column = 0, row = 1, player = Player.X)
         val position = game.board()[0]?.get(1)
+        val result = game.board().values.filter { list ->
+            list.filter { player ->  player == Player.X }.size == 1
+        }.size
+        Assert.assertEquals(Player.X, position)
+        Assert.assertEquals(1, result)
+    }
+
+    @Test (expected = GameException::class)
+    fun `should nothing when the player O tries to play at the same position that player X`() {
+        game.play(column = 0, row = 1, player = Player.X)
+        game.play(column = 0, row = 1, player = Player.O)
+        val position = game.board()[0]?.get(1)
         Assert.assertEquals(Player.X, position)
     }
 
-    /*@Test (expected = GameException::class)
-    fun `should an Exception when the player games a positioned position`() {
-        game.play(position = 1)
-        game.play(position = 1)
-        Assert.assertTrue(game.state().board().contains(element = Player.X))
-    }
-
-    @Test
+    /*@Test
     fun `should players alternate when the board is not filled`() {
         game.play(position = 1)
         val turnOne = game.players().currentPlayer()
