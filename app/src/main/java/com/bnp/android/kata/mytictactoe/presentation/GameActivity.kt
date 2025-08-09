@@ -13,5 +13,6 @@ class GameActivity: AppCompatActivity() {
         setContent {
             GameScreen(viewModel = gameViewModel)
         }
+        gameViewModel.handleIntents(intent = GameIntents.Starting)
     }
 }
