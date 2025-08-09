@@ -41,25 +41,25 @@ fun GameScreen(viewModel: GameViewModel) {
     ConstraintLayout(
         constraintSet = gameScreenConstraintSet(),
         modifier = Modifier.fillMaxSize()) {
-        when {
-            uiState.loading -> {
-                CircularProgressIndicator(
-                    color = Color.Green,
-                    modifier = Modifier.layoutId(layoutId = REF_LOADING))
-            }
-            uiState.matchNul -> {
-                StateText(txt = stringResource(R.string.game_match_null, Player.X.name.uppercase(), Player.O.name.uppercase()), modifier = Modifier.layoutId(layoutId = REF_STATE))
-                StateText(txt = stringResource(R.string.game_play_again), modifier = Modifier.layoutId(layoutId = REF_BUTTON).clickable(enabled = true, onClick = { viewModel.handleIntents(intent = GameIntents.Restarting)}))
-            }
-            uiState.winner -> {
-                StateText(txt = stringResource(R.string.game_winner, uiState.playerName.uppercase()),
+        when(uiState) {
+            is GameUiState.Winner -> {
+                StateText(txt = stringResource(R.string.game_winner, (uiState as GameUiState.Winner).winnerName.uppercase()),
                     textStyle = TextStyle(color = Color.LightGray, fontSize = 16.sp),
                     modifier = Modifier.layoutId(layoutId = REF_STATE))
                 PlayAgainButton { viewModel.handleIntents(intent = GameIntents.Restarting) }
             }
-            uiState.board.isNotEmpty() -> {
-                StateText(txt = stringResource(R.string.game_turn_to, uiState.playerName.uppercase()), color = if (uiState.playerName.contains(Player.X.name)) Color.Blue else Color.Red, modifier = Modifier.layoutId(layoutId = REF_PLAYERS))
-                Grid(board = uiState.board, viewModel = viewModel)
+            is GameUiState.Playing -> {
+                StateText(txt = stringResource(R.string.game_turn_to, (uiState as GameUiState.Playing).playerName.uppercase()), color = if ((uiState as GameUiState.Playing).playerName.contains(Player.X.name)) Color.Blue else Color.Red, modifier = Modifier.layoutId(layoutId = REF_PLAYERS))
+                Grid(board = (uiState as GameUiState.Playing).board, viewModel = viewModel)
+            }
+            is GameUiState.Loading -> {
+                CircularProgressIndicator(
+                    color = Color.Green,
+                    modifier = Modifier.layoutId(layoutId = REF_LOADING))
+            }
+            is GameUiState.MatchNull -> {
+                StateText(txt = stringResource(R.string.game_match_null, Player.X.name.uppercase(), Player.O.name.uppercase()), modifier = Modifier.layoutId(layoutId = REF_STATE))
+                StateText(txt = stringResource(R.string.game_play_again), modifier = Modifier.layoutId(layoutId = REF_BUTTON).clickable(enabled = true, onClick = { viewModel.handleIntents(intent = GameIntents.Restarting)}))
             }
         }
     }
