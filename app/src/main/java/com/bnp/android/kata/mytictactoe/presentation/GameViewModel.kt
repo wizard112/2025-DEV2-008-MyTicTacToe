@@ -16,7 +16,7 @@ class GameViewModel: ViewModel() {
     private val gameUseCase: IGameUseCase = GameUseCase()
     private val verifierGameUseCase: IVerifierUseCase = VerifierGameUseCase()
 
-    private val _uiState: MutableStateFlow<GameUiState> = MutableStateFlow(GameUiState(loading = true))
+    private val _uiState: MutableStateFlow<GameUiState> = MutableStateFlow(GameUiState.Loading)
     val uiState: StateFlow<GameUiState> = _uiState.asStateFlow()
 
     fun handleIntents(intent: GameIntents) {
@@ -32,16 +32,17 @@ class GameViewModel: ViewModel() {
     }
 
     private fun manageStarting() {
-        _uiState.update {
+        /*_uiState.update {
             it.copy(board = gameUseCase.state().board(), playerName = gameUseCase.players().playerX().name, loading = false, matchNul = false, winner = false)
-        }
+        }*/
+        _uiState.value = GameUiState.Playing(board = gameUseCase.state().board(), playerName = gameUseCase.players().playerX().name)
     }
 
     private fun manageMoving(position: Int) {
         try {
             gameUseCase.play(position = position)
             val state = verifierGameUseCase.verify(board = gameUseCase.state().board())
-            when(state) {
+            /*when(state) {
                 StateEnum.FINISHED -> {
                     _uiState.update { it.copy(playerName = gameUseCase.players().currentPlayer().name, winner = true) }
                 }
@@ -51,7 +52,7 @@ class GameViewModel: ViewModel() {
                 StateEnum.MATCH_NUL -> {
                     _uiState.update { it.copy(matchNul = true) }
                 }
-            }
+            }*/
         } catch (ex: GameException) {
             ex.printStackTrace()
         }
