@@ -117,7 +117,7 @@ class StateTest {
         state.moveTo(position = 5, player = Player.X)
         state.moveTo(position = 7, player = Player.O)
         state.moveTo(position = 1, player = Player.X)
-        state.restart()
+        state.reset()
         Assert.assertEquals(9,state.board().filter { player -> player == Player.EMPTY }.size)
     }
 }
