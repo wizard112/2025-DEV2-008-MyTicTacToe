@@ -42,17 +42,18 @@ class GameViewModel: ViewModel() {
         try {
             gameUseCase.play(position = position)
             val state = verifierGameUseCase.verify(board = gameUseCase.state().board())
-            /*when(state) {
+            when(state) {
                 StateEnum.FINISHED -> {
-                    _uiState.update { it.copy(playerName = gameUseCase.players().currentPlayer().name, winner = true) }
+                    //_uiState.update { it.copy(playerName = gameUseCase.players().currentPlayer().name, winner = true) }
                 }
                 StateEnum.NOT_FINISHED -> {
-                    _uiState.update { it.copy(board = gameUseCase.state().board(), playerName = playerName(stateEnum = state)) }
+                   // _uiState.update { it.copy(board = gameUseCase.state().board(), playerName = playerName(stateEnum = state)) }
+                    _uiState.value = GameUiState.Playing(board = gameUseCase.state().board(), playerName = playerName(stateEnum = state))
                 }
                 StateEnum.MATCH_NUL -> {
-                    _uiState.update { it.copy(matchNul = true) }
+                    //_uiState.update { it.copy(matchNul = true) }
                 }
-            }*/
+            }
         } catch (ex: GameException) {
             ex.printStackTrace()
         }
