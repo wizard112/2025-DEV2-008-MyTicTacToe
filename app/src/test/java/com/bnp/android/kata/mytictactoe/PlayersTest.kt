@@ -31,4 +31,10 @@ class PlayersTest {
         Assert.assertEquals(Player.X, firstTurn)
         Assert.assertEquals(Player.O, secondTurn)
     }
+
+    @Test
+    fun `should player X when restart the game`() {
+        players.restart()
+        Assert.assertEquals(Player.X, players.currentPlayer())
+    }
 }
