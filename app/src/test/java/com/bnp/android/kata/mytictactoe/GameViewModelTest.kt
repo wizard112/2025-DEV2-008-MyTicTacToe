@@ -2,6 +2,7 @@ package com.bnp.android.kata.mytictactoe
 
 import com.bnp.android.kata.mytictactoe.domain.enums.Player
 import com.bnp.android.kata.mytictactoe.presentation.GameIntents
+import com.bnp.android.kata.mytictactoe.presentation.GameUiState
 import com.bnp.android.kata.mytictactoe.presentation.GameViewModel
 import org.junit.Assert
 import org.junit.Test
@@ -13,7 +14,7 @@ class GameViewModelTest {
     @Test
     fun `should state is Loading when the view model is instantiated`() {
         val uiState = gameViewModel.uiState.value
-        Assert.assertTrue(uiState.loading)
+        Assert.assertTrue(uiState is GameUiState.Loading)
     }
 
     @Test
