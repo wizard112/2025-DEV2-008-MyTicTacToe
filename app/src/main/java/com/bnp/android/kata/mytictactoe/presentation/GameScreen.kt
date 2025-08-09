@@ -1,6 +1,7 @@
 package com.bnp.android.kata.mytictactoe.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,11 +19,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.bnp.android.kata.mytictactoe.R
 import com.bnp.android.kata.mytictactoe.domain.constants.REF_BOARD
 import com.bnp.android.kata.mytictactoe.domain.constants.REF_BUTTON
 import com.bnp.android.kata.mytictactoe.domain.constants.REF_LOADING
@@ -44,28 +48,18 @@ fun GameScreen(viewModel: GameViewModel) {
                     modifier = Modifier.layoutId(layoutId = REF_LOADING))
             }
             uiState.matchNul -> {
-                StateText(txt = "MATCH NUL ${Player.X.name.uppercase()} ${Player.O.name.uppercase()}", modifier = Modifier.layoutId(layoutId = REF_STATE))
-                StateText(txt = "Rejouer", modifier = Modifier.layoutId(layoutId = REF_BUTTON).clickable(enabled = true, onClick = { viewModel.handleIntents(intent = GameIntents.Restarting)}))
+                StateText(txt = stringResource(R.string.game_match_null, Player.X.name.uppercase(), Player.O.name.uppercase()), modifier = Modifier.layoutId(layoutId = REF_STATE))
+                StateText(txt = stringResource(R.string.game_play_again), modifier = Modifier.layoutId(layoutId = REF_BUTTON).clickable(enabled = true, onClick = { viewModel.handleIntents(intent = GameIntents.Restarting)}))
             }
             uiState.winner -> {
-                StateText(txt = "Winner is ${uiState.playerName.uppercase()} !", modifier = Modifier.layoutId(layoutId = REF_STATE))
-                StateText(txt = "Rejouer", modifier = Modifier.layoutId(layoutId = REF_BUTTON).clickable(enabled = true, onClick = { viewModel.handleIntents(intent = GameIntents.Restarting)}))
+                StateText(txt = stringResource(R.string.game_winner, uiState.playerName.uppercase()),
+                    textStyle = TextStyle(color = Color.LightGray, fontSize = 16.sp),
+                    modifier = Modifier.layoutId(layoutId = REF_STATE))
+                PlayAgainButton { viewModel.handleIntents(intent = GameIntents.Restarting) }
             }
             uiState.board.isNotEmpty() -> {
-                StateText(txt = "${uiState.playerName} is your turn", color = if (uiState.playerName.contains(Player.X.name)) Color.Blue else Color.Red, modifier = Modifier.layoutId(layoutId = REF_PLAYERS))
-                LazyVerticalGrid(columns = GridCells.Fixed(count = 3),
-                    horizontalArrangement = Arrangement.spacedBy(20.dp),
-                    verticalArrangement = Arrangement.spacedBy(20.dp),
-                    modifier = Modifier
-                        .padding(start = 30.dp, end = 30.dp)
-                        .layoutId(layoutId = REF_BOARD)) {
-                    items(
-                        count = uiState.board.size,
-                        key = { it }) { position ->
-                        val item = uiState.board[position]
-                        Cell(player = item) { viewModel.handleIntents(intent = GameIntents.Moving(position = position)) }
-                    }
-                }
+                StateText(txt = stringResource(R.string.game_turn_to, uiState.playerName.uppercase()), color = if (uiState.playerName.contains(Player.X.name)) Color.Blue else Color.Red, modifier = Modifier.layoutId(layoutId = REF_PLAYERS))
+                Grid(board = uiState.board, viewModel = viewModel)
             }
         }
     }
@@ -99,10 +93,43 @@ private fun gameScreenConstraintSet(): ConstraintSet = ConstraintSet {
 }
 
 @Composable
-private fun StateText(txt: String, color: Color = Color.DarkGray, modifier: Modifier = Modifier) {
+private fun StateText(txt: String, color: Color = Color.DarkGray, textStyle: TextStyle = TextStyle.Default, modifier: Modifier = Modifier) {
     Text(text = txt,
         color = color,
+        style = textStyle,
         modifier = modifier)
+}
+
+@Composable
+private fun PlayAgainButton(onclickButton: () -> Unit) {
+    StateText(
+        txt = stringResource(R.string.game_play_again),
+        textStyle = TextStyle(color = Color.LightGray, fontSize = 16.sp),
+        modifier = Modifier
+            .layoutId(layoutId = REF_BUTTON)
+            .border(width = 3.dp, color = Color.DarkGray, shape = RoundedCornerShape(size = 5.dp))
+            .padding(all = 7.dp)
+            .clickable(
+                enabled = true,
+                onClick = { onclickButton } )
+    )
+}
+
+@Composable
+private fun Grid(board: List<Player>, viewModel: GameViewModel) {
+    LazyVerticalGrid(columns = GridCells.Fixed(count = 3),
+        horizontalArrangement = Arrangement.spacedBy(20.dp),
+        verticalArrangement = Arrangement.spacedBy(20.dp),
+        modifier = Modifier
+            .padding(start = 30.dp, end = 30.dp)
+            .layoutId(layoutId = REF_BOARD)) {
+        items(
+            count = board.size,
+            key = { it }) { position ->
+            val item = board[position]
+            Cell(player = item) { viewModel.handleIntents(intent = GameIntents.Moving(position = position)) }
+        }
+    }
 }
 
 @Composable
