@@ -12,14 +12,16 @@ import com.bnp.android.kata.mytictactoe.domain.interfaces.IState
 class GameUseCase(private val columns: Int, private val rows: Int): IGameUseCase {
     //private val players: IPlayer = Players()
     //private val state: IState = GameState()
-    private val mBoard: HashMap<Int, Int> = hashMapOf()
+    private val mBoard: HashMap<Int, MutableList<Player>> = hashMapOf()
     init { initialize() }
 
     //override fun players(): IPlayer = players
     //override fun state(): IState = state
 
     private fun initialize() {
-        //TODO
+        for (i in 0..columns) {
+            mBoard.put(i, MutableList(size = rows, init = { Player.EMPTY}))
+        }
     }
 
     override fun reset() {
@@ -29,6 +31,12 @@ class GameUseCase(private val columns: Int, private val rows: Int): IGameUseCase
     override fun board(): Map<Int, List<Player>> = this.mBoard
 
     override fun play(column: Int, row: Int, player: Player) {
-        //TODO
+        if (mBoard.contains(key = column) && mBoard.get(key = column) != null) {
+            mBoard.get(key = column)?.let {
+                if (it[row] != Player.EMPTY)
+                    throw GameException(msg = "$FIELD_ALREADY_TAKEN at ($column, $row) by the play ${it[row]}")
+            }
+        }
+        mBoard[column]?.let { c -> c[row] = player }
     }
 }
