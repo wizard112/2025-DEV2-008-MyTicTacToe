@@ -12,7 +12,7 @@ class Players: IPlayer {
     override fun playerX(): Player = playerX
     override fun playerO(): Player = playerO
     override fun currentPlayer(): Player = current
-    override fun restart() {
+    override fun reset() {
         current = Player.EMPTY
     }
     override fun turnTo() {

@@ -9,7 +9,7 @@ class GameState: IState {
     private val mBoard: MutableList<Player> = MutableList(9, { Player.EMPTY })
 
     override fun board(): List<Player> = this.mBoard
-    override fun restart() {
+    override fun reset() {
         mBoard[0] = Player.EMPTY
         mBoard[1] = Player.EMPTY
         mBoard[2] = Player.EMPTY
