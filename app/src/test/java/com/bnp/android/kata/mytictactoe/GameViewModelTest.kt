@@ -17,14 +17,15 @@ class GameViewModelTest {
         Assert.assertTrue(uiState is GameUiState.Loading)
     }
 
-    /*@Test
+    @Test
     fun `should player x starts when the game is instantiated`() {
         gameViewModel.handleIntents(intent = GameIntents.Starting)
         val uiState = gameViewModel.uiState.value
-        Assert.assertEquals(Player.X.name, uiState.playerName)
+        Assert.assertTrue(uiState is GameUiState.Playing)
+        Assert.assertEquals(Player.X.name, (uiState as GameUiState.Playing).playerName)
     }
 
-    @Test
+    /*@Test
     fun `should positions are filled when the players play`() {
         gameViewModel.handleIntents(intent = GameIntents.Moving(position = 0))
         val uiStateOne = gameViewModel.uiState.value
