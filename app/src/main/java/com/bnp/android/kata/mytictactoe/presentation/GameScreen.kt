@@ -111,7 +111,7 @@ private fun PlayAgainButton(onclickButton: () -> Unit) {
             .padding(all = 7.dp)
             .clickable(
                 enabled = true,
-                onClick = { onclickButton } )
+                onClick = { onclickButton() } )
     )
 }
 
