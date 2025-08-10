@@ -9,7 +9,7 @@ import org.junit.Test
 
 class VerifierGameTest {
     private val verifier = VerifierGameUseCase()
-    val board: HashMap<Int, MutableList<Player>> = hashMapOf()
+    private val board: HashMap<Int, MutableList<Player>> = hashMapOf()
 
     @Before
     fun setup() {
@@ -24,7 +24,7 @@ class VerifierGameTest {
         board[2]?.let { c -> c[2] = Player.O }
         board[0]?.let { c -> c[1] = Player.X }
         board[2]?.let { c -> c[1] = Player.O }
-        board[0]?.let { c -> c[0] = Player.O }
+        board[0]?.let { c -> c[2] = Player.X }
         Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = board))
     }
 
@@ -64,7 +64,7 @@ class VerifierGameTest {
         board[2]?.let { c -> c[2] = Player.O }
         board[1]?.let { c -> c[1] = Player.X }
         board[2]?.let { c -> c[2] = Player.O }
-        board[0]?.let { c -> c[2] = Player.X }
+        board[2]?.let { c -> c[1] = Player.X }
         Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = board))
     }
 
@@ -84,8 +84,9 @@ class VerifierGameTest {
         board[0]?.let { c -> c[2] = Player.O }
         board[1]?.let { c -> c[0] = Player.X }
         board[1]?.let { c -> c[1] = Player.O }
-        board[2]?.let { c -> c[0] = Player.X }
-        board[1]?.let { c -> c[0] = Player.O }
+        board[2]?.let { c -> c[1] = Player.X }
+        board[2]?.let { c -> c[0] = Player.O }
+        val ll = board
         Assert.assertEquals(StateEnum.FINISHED, verifier.verify(board = board))
     }
 
