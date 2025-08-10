@@ -19,31 +19,14 @@ class VerifierGameUseCase: IVerifierUseCase {
     }
 
     override fun verify(board: Map<Int, MutableList<Player>>): StateEnum {
-        var satisfied = false
-        var counter = 0
-        while (!satisfied && counter < board.size) {
-            val players = board[counter]
-            satisfied = if (players == null) false
-            else
-                verifiers.any { verifier ->
-                verifier.verifierRow(board = players, player = Player.X)
-                        || verifier.verifierRow(board = players, player = Player.O)
-            }
-            counter++
-        }
         return when {
-            satisfied -> StateEnum.FINISHED
-            board.values.mapIndexed { index, players -> players[index] == Player.X || players[index] == Player.O }.size == 9 -> StateEnum.MATCH_NUL
-            else -> StateEnum.NOT_FINISHED
-        }
-        /*return when {
             verifiers.any { verifier ->
                 verifier.verifierRow(board = board, player = Player.X)
                         || verifier.verifierRow(board = board, player = Player.O)
             } -> StateEnum.FINISHED
 
-            board.filter { player -> player == Player.X || player == Player.O }.size == 9 -> StateEnum.MATCH_NUL
+            board.values.flatMap { it }.filter { player -> player == Player.X || player == Player.O }.size == 9 -> StateEnum.MATCH_NUL
             else -> StateEnum.NOT_FINISHED
-        }*/
+        }
     }
 }
