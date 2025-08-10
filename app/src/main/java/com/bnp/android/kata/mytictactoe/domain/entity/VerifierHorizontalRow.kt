@@ -5,11 +5,12 @@ import com.bnp.android.kata.mytictactoe.domain.interfaces.IVerifierRow
 
 class VerifierHorizontalRow: IVerifierRow {
     override fun verifierRow(board: Map<Int, MutableList<Player>>, player: Player): Boolean {
-        val rowOne = board[0]
-        val rowTwo = board[1]
-        val rowThree = board[2]
-        return rowOne?.filter { it == player }?.size == 3
-                || rowTwo?.filter { it == player }?.size == 3
-                || rowThree?.filter { it == player }?.size == 3
+        var found = false
+        var i = 0
+        while (i < board.size && !found) {
+            found = board[i]?.filter { it == player }?.size == board.size
+            i++
+        }
+        return found
     }
 }
