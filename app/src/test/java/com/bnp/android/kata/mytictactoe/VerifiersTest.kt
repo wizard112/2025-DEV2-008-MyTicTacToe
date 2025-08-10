@@ -67,4 +67,13 @@ class VerifiersTest {
         val state = verifierDiagonalRow.verifierRow(board = boardOnlyRow, player = Player.X)
         Assert.assertEquals(true, state)
     }
+
+    @Test
+    fun `should be true when there is three in anti diagonal row`() {
+        boardOnlyRow.put(0, mutableListOf(Player.O, Player.EMPTY, Player.EMPTY))
+        boardOnlyRow.put(1, mutableListOf(Player.X, Player.O, Player.O))
+        boardOnlyRow.put(2, mutableListOf(Player.X, Player.EMPTY, Player.O))
+        val state = verifierDiagonalRow.verifierRow(board = boardOnlyRow, player = Player.X)
+        Assert.assertEquals(true, state)
+    }
 }
