@@ -64,7 +64,7 @@ class VerifiersTest {
         boardOnlyRow.put(0, mutableListOf(Player.EMPTY, Player.EMPTY, Player.X))
         boardOnlyRow.put(1, mutableListOf(Player.X, Player.X, Player.O))
         boardOnlyRow.put(2, mutableListOf(Player.X, Player.EMPTY, Player.O))
-        val state = verifierDiagonalRow.verifierRow(board = boardOnlyRow, player = Player.O)
+        val state = verifierDiagonalRow.verifierRow(board = boardOnlyRow, player = Player.X)
         Assert.assertEquals(true, state)
     }
 }
