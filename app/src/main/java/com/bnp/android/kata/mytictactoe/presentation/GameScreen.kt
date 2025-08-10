@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -40,26 +41,31 @@ fun GameScreen(viewModel: GameViewModel) {
 
     ConstraintLayout(
         constraintSet = gameScreenConstraintSet(),
-        modifier = Modifier.fillMaxSize()) {
-        when {
-            uiState.loading -> {
+        modifier = Modifier.fillMaxSize().background(color = Color.White)) {
+        when(uiState) {
+            is GameUiState.Winner -> {
+                StateText(txt = stringResource(R.string.game_winner, (uiState as GameUiState.Winner).winnerName.uppercase()),
+                    textStyle = TextStyle(color = Color.LightGray, fontSize = 20.sp),
+                    modifier = Modifier.layoutId(layoutId = REF_STATE))
+                PlayAgainButton { viewModel.handleIntents(intent = GameIntents.Restarting) }
+            }
+            is GameUiState.Playing -> {
+                StateText(txt = stringResource(R.string.game_turn_to, (uiState as GameUiState.Playing).playerName.uppercase()),
+                    color = playerColor(playerName = (uiState as GameUiState.Playing).playerName),
+                    modifier = Modifier.layoutId(layoutId = REF_PLAYERS),
+                    textStyle = TextStyle(fontSize = 15.sp))
+                Grid(board = (uiState as GameUiState.Playing).board, viewModel = viewModel)
+            }
+            is GameUiState.Loading -> {
                 CircularProgressIndicator(
                     color = Color.Green,
                     modifier = Modifier.layoutId(layoutId = REF_LOADING))
             }
-            uiState.matchNul -> {
-                StateText(txt = stringResource(R.string.game_match_null, Player.X.name.uppercase(), Player.O.name.uppercase()), modifier = Modifier.layoutId(layoutId = REF_STATE))
-                StateText(txt = stringResource(R.string.game_play_again), modifier = Modifier.layoutId(layoutId = REF_BUTTON).clickable(enabled = true, onClick = { viewModel.handleIntents(intent = GameIntents.Restarting)}))
-            }
-            uiState.winner -> {
-                StateText(txt = stringResource(R.string.game_winner, uiState.playerName.uppercase()),
-                    textStyle = TextStyle(color = Color.LightGray, fontSize = 16.sp),
-                    modifier = Modifier.layoutId(layoutId = REF_STATE))
+            is GameUiState.MatchNull -> {
+                StateText(txt = stringResource(R.string.game_match_null, Player.X.name.uppercase(), Player.O.name.uppercase()),
+                    modifier = Modifier.layoutId(layoutId = REF_STATE),
+                    textStyle = TextStyle(color = Color.DarkGray, fontSize = 20.sp))
                 PlayAgainButton { viewModel.handleIntents(intent = GameIntents.Restarting) }
-            }
-            uiState.board.isNotEmpty() -> {
-                StateText(txt = stringResource(R.string.game_turn_to, uiState.playerName.uppercase()), color = if (uiState.playerName.contains(Player.X.name)) Color.Blue else Color.Red, modifier = Modifier.layoutId(layoutId = REF_PLAYERS))
-                Grid(board = uiState.board, viewModel = viewModel)
             }
         }
     }
@@ -92,6 +98,8 @@ private fun gameScreenConstraintSet(): ConstraintSet = ConstraintSet {
     }
 }
 
+private fun playerColor(playerName: String): Color = if (playerName.contains(Player.X.name)) Color.Blue else Color.Red
+
 @Composable
 private fun StateText(txt: String, color: Color = Color.DarkGray, textStyle: TextStyle = TextStyle.Default, modifier: Modifier = Modifier) {
     Text(text = txt,
@@ -111,7 +119,7 @@ private fun PlayAgainButton(onclickButton: () -> Unit) {
             .padding(all = 7.dp)
             .clickable(
                 enabled = true,
-                onClick = { onclickButton } )
+                onClick = { onclickButton() } )
     )
 }
 
@@ -122,19 +130,22 @@ private fun Grid(board: List<Player>, viewModel: GameViewModel) {
         verticalArrangement = Arrangement.spacedBy(20.dp),
         modifier = Modifier
             .padding(start = 30.dp, end = 30.dp)
-            .layoutId(layoutId = REF_BOARD)) {
+            .layoutId(layoutId = REF_BOARD)
+            .testTag(tag = "grid")) {
         items(
             count = board.size,
             key = { it }) { position ->
             val item = board[position]
-            Cell(player = item) { viewModel.handleIntents(intent = GameIntents.Moving(position = position)) }
+            Cell(player = item,
+                onClickCell = { viewModel.handleIntents(intent = GameIntents.Moving(position = position)) },
+                modifier = Modifier.testTag(tag = "cell_$position"))
         }
     }
 }
 
 @Composable
-private fun Cell(player: Player, onClickCell:() -> Unit) {
-    Column(modifier = Modifier
+private fun Cell(player: Player, onClickCell:() -> Unit, modifier: Modifier = Modifier) {
+    Column(modifier = modifier
         .size(size = 50.dp)
         .background(color = Color.LightGray, shape = RoundedCornerShape(size = 10.dp))
         .clickable(

@@ -12,7 +12,7 @@ The rules are described below :
 - If a player is able to draw three X’s or three O’s in a row, that player wins.
 - If all nine squares are filled and neither player has three in a row, the game is a draw.
 
-link => https://github.com/stephane-genicot/katas/blob/master/TicTacToe.md
+[Tic Tac Toe link] https://github.com/stephane-genicot/katas/blob/master/TicTacToe.md
 
 ## GIT
 
@@ -32,19 +32,26 @@ I tried to apply TDD on the project by respecting the principle : RED - GREEN - 
 
 ### Clean Architecture
 I tried to apply clean Architecture with different layers : UI - DATA - DOMAIN
-Layer Domain
+
+#### Layer Domain
  - entities
  - use cases
 
-Layer Data
+##### In the Kata
+ I tried to apply the principle one action = one use case
+ action play => use case Game
+ action turn to => use case Player
+ action verifier => use case Verifier
+
+#### Layer Data
  - in this case is empty, we can save the state of game if it was a requirement
 
-Layer Presentation/UI
+#### Layer Presentation/UI
  - handle the interaction with UI
 
-## Layer Presentation/UI
+##### Design pattern Model-View-Intent
 
-I try to implement he design patter MVI - Model View Intent.
+I try to implement he design patter MVI.
 This pattern uses a unidirectional data flow, separation of concerns and immutability : 
 
 - Component Intent represents the interaction and user actions like click button, it communicates teh user's actions.
@@ -52,7 +59,7 @@ This pattern uses a unidirectional data flow, separation of concerns and immutab
 - Component View represents the UI renderer, it displays the app's state to the user
 
 
-### Principles
+### SOLID Principles
 I tried to apply the SOLID principles.
 
 
@@ -69,16 +76,15 @@ minimum version is 9 (Pie) - API Level is 28
 target SDK and compile SDK is 36
 
 ### Language
-Koltin version 2.2.0
-
+Kotlin version 2.2.0
 
 
 ## Sources
-Gitflow workflow : https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
-clean architecture blog - uncle bob : https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
-conventional commit : https://medium.com/@noriller/docs-conventional-commits-feat-fix-refactor-which-is-which-531614fcb65a
-example project clean architecture with MVI : https://medium.com/@sharmapraveen91/mastering-mvi-clean-architecture-for-android-a-comprehensive-guide-with-clean-code-and-tdd-best-98272fabe4f2
-Examples README for Android project : https://gist.github.com/framundo/fb7d75a0176f7be2b02e
-Kotlin Doc Collections - any : https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/any.html
-Kotlin Doc collections in general : https://kotlinlang.org/docs/collections-overview.html
-Medium - Android Project with MVI : https://medium.com/@mohammedkhudair57/mvi-architecture-pattern-in-android-0046bf9b8a2e
+[Gitflow workflow] https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+[clean architecture blog - uncle bob] https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
+[conventional commit] https://medium.com/@noriller/docs-conventional-commits-feat-fix-refactor-which-is-which-531614fcb65a
+[example project clean architecture with MVI] https://medium.com/@sharmapraveen91/mastering-mvi-clean-architecture-for-android-a-comprehensive-guide-with-clean-code-and-tdd-best-98272fabe4f2
+[Examples README for Android project] https://gist.github.com/framundo/fb7d75a0176f7be2b02e
+[Kotlin Doc Collections - any] https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/any.html
+[Kotlin Doc collections in general] https://kotlinlang.org/docs/collections-overview.html
+[Medium - Android Project with MVI] https://medium.com/@mohammedkhudair57/mvi-architecture-pattern-in-android-0046bf9b8a2e
