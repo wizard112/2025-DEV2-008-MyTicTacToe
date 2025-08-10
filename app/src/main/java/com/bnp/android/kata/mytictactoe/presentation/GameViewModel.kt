@@ -14,33 +14,32 @@ import com.bnp.android.kata.mytictactoe.domain.usecase.VerifierGameUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 
 class GameViewModel: ViewModel() {
     private val gameUseCase: IGameUseCase = GameUseCase(columns = NB_COLUMN, rows = NB_ROW)
     private val verifierGameUseCase: IVerifierUseCase = VerifierGameUseCase()
     private val playersUseCase: IPlayer = PlayersUseCase()
 
-    private val _uiState: MutableStateFlow<GameUiState> = MutableStateFlow(GameUiState(loading = true))
+    private val _uiState: MutableStateFlow<GameUiState> = MutableStateFlow(GameUiState.Loading)
     val uiState: StateFlow<GameUiState> = _uiState.asStateFlow()
 
     fun handleIntents(intent: GameIntents) {
         when(intent) {
             GameIntents.Starting -> manageStarting()
-            GameIntents.Restarting -> {
-                gameUseCase.reset()
-                gameUseCase.reset()
-                manageStarting()
-            }
+            GameIntents.Restarting -> manageRestarting()
             is GameIntents.Moving -> manageMoving(column = intent.column, row = intent.row)
         }
     }
 
     private fun manageStarting() {
         playersUseCase.turnTo()
-        _uiState.update {
-            it.copy(board = gameUseCase.board().toMap(), playerName = playersUseCase.currentPlayer().name, loading = false, matchNul = false, winner = false)
-        }
+        _uiState.value = GameUiState.Playing(board = gameUseCase.board().toMap(), playerName = playersUseCase.currentPlayer().name)
+    }
+
+    private fun manageRestarting() {
+        gameUseCase.reset()
+        playersUseCase.reset()
+        manageStarting()
     }
 
     private fun manageMoving(column: Int, row: Int) {
@@ -49,14 +48,14 @@ class GameViewModel: ViewModel() {
             val state = verifierGameUseCase.verify(board = gameUseCase.board())
             when(state) {
                 StateEnum.FINISHED -> {
-                    _uiState.update { it.copy(playerName = playersUseCase.currentPlayer().name, winner = true) }
+                    _uiState.value = GameUiState.Winner(winnerName = playersUseCase.currentPlayer().name)
                 }
                 StateEnum.NOT_FINISHED -> {
                     playersUseCase.turnTo()
-                    _uiState.update { it.copy(board = gameUseCase.board().toMap(), playerName = playersUseCase.currentPlayer().name) }
+                    _uiState.value = GameUiState.Playing(board = gameUseCase.board().toMap(), playerName = playersUseCase.currentPlayer().name)
                 }
                 StateEnum.MATCH_NUL -> {
-                    _uiState.update { it.copy(matchNul = true) }
+                    _uiState.value = GameUiState.MatchNull
                 }
             }
         } catch (ex: GameException) {

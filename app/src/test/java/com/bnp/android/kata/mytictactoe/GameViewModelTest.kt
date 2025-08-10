@@ -2,6 +2,7 @@ package com.bnp.android.kata.mytictactoe
 
 import com.bnp.android.kata.mytictactoe.domain.enums.Player
 import com.bnp.android.kata.mytictactoe.presentation.GameIntents
+import com.bnp.android.kata.mytictactoe.presentation.GameUiState
 import com.bnp.android.kata.mytictactoe.presentation.GameViewModel
 import org.junit.Assert
 import org.junit.Test
@@ -13,14 +14,14 @@ class GameViewModelTest {
     @Test
     fun `should state is Loading when the view model is instantiated`() {
         val uiState = gameViewModel.uiState.value
-        Assert.assertTrue(uiState.loading)
+        Assert.assertTrue(uiState is GameUiState.Loading)
     }
 
     @Test
     fun `should player x starts when the game is instantiated`() {
         gameViewModel.handleIntents(intent = GameIntents.Starting)
         val uiState = gameViewModel.uiState.value
-        Assert.assertEquals(Player.X.name, uiState.playerName)
+        Assert.assertEquals(Player.X.name, (uiState as GameUiState.Playing).playerName)
     }
 
     @Test
@@ -29,15 +30,16 @@ class GameViewModelTest {
         val uiStateOne = gameViewModel.uiState.value
         gameViewModel.handleIntents(intent = GameIntents.Moving(column = 0, row = 2))
         val uiStateTwo = gameViewModel.uiState.value
-        Assert.assertEquals(Player.X.name, uiStateOne.playerName)
-        Assert.assertEquals(Player.O.name, uiStateTwo.playerName)
+        Assert.assertEquals(Player.X.name, (uiStateOne as GameUiState.Playing).playerName)
+        Assert.assertEquals(Player.O.name, (uiStateTwo as GameUiState.Playing).playerName)
     }
 
     @Test
     fun `should can do nothing when the player O tries to taken a position already filled by player X`() {
         gameViewModel.handleIntents(intent = GameIntents.Moving(column = 0, row = 1))
         gameViewModel.handleIntents(intent = GameIntents.Moving(column = 0, row = 1))
-        Assert.assertEquals(Player.X, gameViewModel.uiState.value.board[0]!![1])
+        val uiState = gameViewModel.uiState.value
+        Assert.assertEquals(Player.X, (uiState as GameUiState.Playing).board[0]!![1])
     }
 
     @Test
@@ -49,8 +51,8 @@ class GameViewModelTest {
         gameViewModel.handleIntents(intent = GameIntents.Moving(column = 0, row = 2))
         gameViewModel.handleIntents(intent = GameIntents.Moving(column = 2, row = 2))
         val uiState = gameViewModel.uiState.value
-        Assert.assertTrue(uiState.winner)
-        Assert.assertEquals(Player.X.name, uiState.playerName)
+        Assert.assertTrue(uiState is GameUiState.Winner)
+        Assert.assertEquals(Player.X.name, (uiState as GameUiState.Winner).winnerName)
     }
 
     @Test
@@ -63,8 +65,8 @@ class GameViewModelTest {
         gameViewModel.handleIntents(intent = GameIntents.Moving(column = 1, row = 2))
         gameViewModel.handleIntents(intent = GameIntents.Moving(column = 2, row = 1))
         val uiState = gameViewModel.uiState.value
-        Assert.assertTrue(uiState.winner)
-        Assert.assertEquals(Player.O.name, uiState.playerName)
+        Assert.assertTrue(uiState is GameUiState.Winner)
+        Assert.assertEquals(Player.O.name, (uiState as GameUiState.Winner).winnerName)
     }
 
     @Test
@@ -80,6 +82,6 @@ class GameViewModelTest {
         gameViewModel.handleIntents(intent = GameIntents.Moving(column = 2, row = 1))
         gameViewModel.handleIntents(intent = GameIntents.Moving(column = 0, row = 1))
         val uiState = gameViewModel.uiState.value
-        Assert.assertTrue(uiState.matchNul)
+        Assert.assertTrue(uiState is GameUiState.MatchNull)
     }
 }
