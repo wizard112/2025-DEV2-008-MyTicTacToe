@@ -130,7 +130,8 @@ private fun Grid(board: List<Player>, viewModel: GameViewModel) {
         verticalArrangement = Arrangement.spacedBy(20.dp),
         modifier = Modifier
             .padding(start = 30.dp, end = 30.dp)
-            .layoutId(layoutId = REF_BOARD)) {
+            .layoutId(layoutId = REF_BOARD)
+            .testTag(tag = "grid")) {
         items(
             count = board.size,
             key = { it }) { position ->
