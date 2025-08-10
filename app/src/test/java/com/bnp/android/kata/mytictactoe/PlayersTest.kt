@@ -1,6 +1,6 @@
 package com.bnp.android.kata.mytictactoe
 
-import com.bnp.android.kata.mytictactoe.domain.entity.Players
+import com.bnp.android.kata.mytictactoe.domain.usecase.PlayersUseCase
 import com.bnp.android.kata.mytictactoe.domain.enums.Player
 import com.bnp.android.kata.mytictactoe.domain.interfaces.IPlayer
 import org.junit.Assert
@@ -8,7 +8,7 @@ import org.junit.Test
 
 class PlayersTest {
 
-    private val players: IPlayer = Players()
+    private val players: IPlayer = PlayersUseCase()
 
     @Test
     fun `should have the player X and player O when start the game`() {
