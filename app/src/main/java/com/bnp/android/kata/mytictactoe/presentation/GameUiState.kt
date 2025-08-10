@@ -9,5 +9,5 @@ data class GameUiState(
     val playerName: String = "",
     val matchNul: Boolean = false,
     val winner: Boolean = false,
-    val board: List<Player> = emptyList()
+    val board: Map<Int, List<Player>> = emptyMap()
 )
