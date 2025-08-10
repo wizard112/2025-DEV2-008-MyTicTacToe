@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -134,14 +135,16 @@ private fun Grid(board: List<Player>, viewModel: GameViewModel) {
             count = board.size,
             key = { it }) { position ->
             val item = board[position]
-            Cell(player = item) { viewModel.handleIntents(intent = GameIntents.Moving(position = position)) }
+            Cell(player = item,
+                onClickCell = { viewModel.handleIntents(intent = GameIntents.Moving(position = position)) },
+                modifier = Modifier.testTag(tag = "cell_$position"))
         }
     }
 }
 
 @Composable
-private fun Cell(player: Player, onClickCell:() -> Unit) {
-    Column(modifier = Modifier
+private fun Cell(player: Player, onClickCell:() -> Unit, modifier: Modifier = Modifier) {
+    Column(modifier = modifier
         .size(size = 50.dp)
         .background(color = Color.LightGray, shape = RoundedCornerShape(size = 10.dp))
         .clickable(
