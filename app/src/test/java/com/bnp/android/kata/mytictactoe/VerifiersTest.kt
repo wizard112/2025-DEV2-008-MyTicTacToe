@@ -1,5 +1,6 @@
 package com.bnp.android.kata.mytictactoe
 
+import com.bnp.android.kata.mytictactoe.domain.entity.VerifierDiagonalRow
 import com.bnp.android.kata.mytictactoe.domain.entity.VerifierHorizontalRow
 import com.bnp.android.kata.mytictactoe.domain.entity.VerifierVerticalRow
 import com.bnp.android.kata.mytictactoe.domain.enums.Player
@@ -11,6 +12,7 @@ class VerifiersTest {
     private val boardOnlyRow: HashMap<Int, MutableList<Player>> = hashMapOf()
     private val verifierHorizontalRow: IVerifierRow = VerifierHorizontalRow()
     private val verifierVerticalRow: IVerifierRow = VerifierVerticalRow()
+    private val verifierDiagonalRow: IVerifierRow = VerifierDiagonalRow()
 
     @Test
     fun `should be true when there is three aat second row`() {
@@ -22,7 +24,7 @@ class VerifiersTest {
     }
 
     @Test
-    fun `should be false when there is not three`() {
+    fun `should be false when there is not three at horizontal`() {
         boardOnlyRow.put(0, mutableListOf(Player.EMPTY, Player.EMPTY, Player.EMPTY))
         boardOnlyRow.put(1, mutableListOf(Player.X, Player.O, Player.EMPTY))
         boardOnlyRow.put(2, mutableListOf(Player.EMPTY, Player.EMPTY, Player.EMPTY))
@@ -49,11 +51,20 @@ class VerifiersTest {
     }
 
     @Test
-    fun `should be false when try there is not three`() {
+    fun `should be false when there is not three at vertical `() {
         boardOnlyRow.put(0, mutableListOf(Player.EMPTY, Player.EMPTY, Player.X))
         boardOnlyRow.put(1, mutableListOf(Player.X, Player.X, Player.O))
         boardOnlyRow.put(2, mutableListOf(Player.O, Player.EMPTY, Player.O))
         val state = verifierVerticalRow.verifierRow(board = boardOnlyRow, player = Player.O)
         Assert.assertEquals(false, state)
+    }
+
+    @Test
+    fun `should be true when there is three in diagonal row`() {
+        boardOnlyRow.put(0, mutableListOf(Player.EMPTY, Player.EMPTY, Player.X))
+        boardOnlyRow.put(1, mutableListOf(Player.X, Player.X, Player.O))
+        boardOnlyRow.put(2, mutableListOf(Player.X, Player.EMPTY, Player.O))
+        val state = verifierDiagonalRow.verifierRow(board = boardOnlyRow, player = Player.O)
+        Assert.assertEquals(true, state)
     }
 }
