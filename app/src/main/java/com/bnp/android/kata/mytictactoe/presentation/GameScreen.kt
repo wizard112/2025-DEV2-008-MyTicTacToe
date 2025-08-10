@@ -44,12 +44,15 @@ fun GameScreen(viewModel: GameViewModel) {
         when(uiState) {
             is GameUiState.Winner -> {
                 StateText(txt = stringResource(R.string.game_winner, (uiState as GameUiState.Winner).winnerName.uppercase()),
-                    textStyle = TextStyle(color = Color.LightGray, fontSize = 16.sp),
+                    textStyle = TextStyle(color = Color.LightGray, fontSize = 20.sp),
                     modifier = Modifier.layoutId(layoutId = REF_STATE))
                 PlayAgainButton { viewModel.handleIntents(intent = GameIntents.Restarting) }
             }
             is GameUiState.Playing -> {
-                StateText(txt = stringResource(R.string.game_turn_to, (uiState as GameUiState.Playing).playerName.uppercase()), color = if ((uiState as GameUiState.Playing).playerName.contains(Player.X.name)) Color.Blue else Color.Red, modifier = Modifier.layoutId(layoutId = REF_PLAYERS))
+                StateText(txt = stringResource(R.string.game_turn_to, (uiState as GameUiState.Playing).playerName.uppercase()),
+                    color = playerColor(playerName = (uiState as GameUiState.Playing).playerName),
+                    modifier = Modifier.layoutId(layoutId = REF_PLAYERS),
+                    textStyle = TextStyle(fontSize = 15.sp))
                 Grid(board = (uiState as GameUiState.Playing).board, viewModel = viewModel)
             }
             is GameUiState.Loading -> {
@@ -58,8 +61,10 @@ fun GameScreen(viewModel: GameViewModel) {
                     modifier = Modifier.layoutId(layoutId = REF_LOADING))
             }
             is GameUiState.MatchNull -> {
-                StateText(txt = stringResource(R.string.game_match_null, Player.X.name.uppercase(), Player.O.name.uppercase()), modifier = Modifier.layoutId(layoutId = REF_STATE))
-                StateText(txt = stringResource(R.string.game_play_again), modifier = Modifier.layoutId(layoutId = REF_BUTTON).clickable(enabled = true, onClick = { viewModel.handleIntents(intent = GameIntents.Restarting)}))
+                StateText(txt = stringResource(R.string.game_match_null, Player.X.name.uppercase(), Player.O.name.uppercase()),
+                    modifier = Modifier.layoutId(layoutId = REF_STATE),
+                    textStyle = TextStyle(color = Color.DarkGray, fontSize = 20.sp))
+                PlayAgainButton { viewModel.handleIntents(intent = GameIntents.Restarting) }
             }
         }
     }
@@ -91,6 +96,8 @@ private fun gameScreenConstraintSet(): ConstraintSet = ConstraintSet {
         centerHorizontallyTo(other = parent)
     }
 }
+
+private fun playerColor(playerName: String): Color = if (playerName.contains(Player.X.name)) Color.Blue else Color.Red
 
 @Composable
 private fun StateText(txt: String, color: Color = Color.DarkGray, textStyle: TextStyle = TextStyle.Default, modifier: Modifier = Modifier) {
