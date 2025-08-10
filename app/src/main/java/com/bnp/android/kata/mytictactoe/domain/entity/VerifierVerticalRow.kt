@@ -5,9 +5,16 @@ import com.bnp.android.kata.mytictactoe.domain.interfaces.IVerifierRow
 
 class VerifierVerticalRow: IVerifierRow {
     override fun verifierRow(board: Map<Int, MutableList<Player>>, player: Player): Boolean {
-        val columnOne = board[0]?.last()
-        val columnTwo = board[1]?.last()
-        val columnThree = board[2]?.last()
-        return columnOne == player && columnTwo == player && columnThree == player
+        var found = false
+        var column = 0
+        while (column < board.size && !found) {
+            val list = mutableListOf<Player>()
+            for (i in 0..<board.size) {
+                board[i]?.let { players -> list.add(element = players[column]) }
+            }
+            found = list.filter { it == player }.size == board.size
+            column++
+        }
+        return found
     }
 }
