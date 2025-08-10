@@ -32,9 +32,9 @@ class GameViewModel: ViewModel() {
     }
 
     private fun manageStarting() {
-        /*_uiState.update {
-            it.copy(board = gameUseCase.state().board(), playerName = gameUseCase.players().playerX().name, loading = false, matchNul = false, winner = false)
-        }*/
+        _uiState.update {
+            it.copy(board = gameUseCase.board(), playerName = "X", loading = false, matchNul = false, winner = false)
+        }
     }
 
     private fun manageMoving(position: Int) {
