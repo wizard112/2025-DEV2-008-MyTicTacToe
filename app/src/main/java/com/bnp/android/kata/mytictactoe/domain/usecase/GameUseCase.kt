@@ -10,8 +10,8 @@ class GameUseCase(private val columns: Int, private val rows: Int): IGameUseCase
     init { initialize() }
 
     private fun initialize() {
-        for (i in 0..columns) {
-            mBoard.put(i, MutableList(size = rows, init = { Player.EMPTY}))
+        for (i in 0..< columns) {
+            mBoard.put(i, MutableList(size = rows, init = { Player.EMPTY }))
         }
     }
 
