@@ -1,5 +1,6 @@
 package com.bnp.android.kata.mytictactoe
 
+import com.bnp.android.kata.mytictactoe.domain.entity.VerifierAntidiagonalRow
 import com.bnp.android.kata.mytictactoe.domain.entity.VerifierDiagonalRow
 import com.bnp.android.kata.mytictactoe.domain.entity.VerifierHorizontalRow
 import com.bnp.android.kata.mytictactoe.domain.entity.VerifierVerticalRow
@@ -13,6 +14,7 @@ class VerifiersTest {
     private val verifierHorizontalRow: IVerifierRow = VerifierHorizontalRow()
     private val verifierVerticalRow: IVerifierRow = VerifierVerticalRow()
     private val verifierDiagonalRow: IVerifierRow = VerifierDiagonalRow()
+    private val verifierAntidiagonalRow: IVerifierRow = VerifierAntidiagonalRow()
 
     @Test
     fun `should be true when there is three aat second row`() {
@@ -73,7 +75,7 @@ class VerifiersTest {
         boardOnlyRow.put(0, mutableListOf(Player.O, Player.EMPTY, Player.EMPTY))
         boardOnlyRow.put(1, mutableListOf(Player.X, Player.O, Player.O))
         boardOnlyRow.put(2, mutableListOf(Player.X, Player.EMPTY, Player.O))
-        val state = verifierDiagonalRow.verifierRow(board = boardOnlyRow, player = Player.X)
+        val state = verifierAntidiagonalRow.verifierRow(board = boardOnlyRow, player = Player.O)
         Assert.assertEquals(true, state)
     }
 }
