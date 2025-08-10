@@ -1,5 +1,6 @@
 package com.bnp.android.kata.mytictactoe
 
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.printToLog
@@ -24,5 +25,7 @@ class GameScreenTest {
         }
 
         composeTestRule.onRoot(useUnmergedTree = true).printToLog("TAG")
+
+        composeTestRule.onNode(hasText("X is your turn"))
     }
 }
