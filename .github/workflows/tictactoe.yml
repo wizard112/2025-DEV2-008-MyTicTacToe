@@ -15,13 +15,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
          java-version: 21
-      - name: Change wrapper permissions
-        run: chmod +x ./gradlew
-      - name: Init gradle wrapper
-        run: gradle wrapper
-      - name: Change wrapper permissions
-        run: chmod +x ./gradlew
       - name : Gradle Clean
         run: ./gradlew clean
       - name: Gradle Build
-        run: .gradlew/ build
+        run: ./gradlew build
+      - name: Gradle test debug unit test
+        run: ./gradlew testDebugUnitTest
