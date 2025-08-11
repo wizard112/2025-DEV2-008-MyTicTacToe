@@ -2,7 +2,7 @@ name: GitHub Actions Tic Tac Toe
 run-name: GitHub Actions 🚀
 
 on:
-  push
+  pull_request
 
 jobs: 
   run_ui_tests:
