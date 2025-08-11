@@ -100,5 +100,6 @@ class GameViewModelTest {
         Assert.assertTrue(uiState is GameUiState.Winner)
         Assert.assertEquals(Player.O.name, (uiState as GameUiState.Winner).winnerName)
         Assert.assertTrue(uiStateTwo is GameUiState.Playing)
+        Assert.assertEquals(Player.X.name, (uiStateTwo as GameUiState.Playing).playerName)
     }
 }
