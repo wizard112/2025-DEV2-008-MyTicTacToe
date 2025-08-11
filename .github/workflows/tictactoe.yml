@@ -1,5 +1,6 @@
 name: GitHub Actions Tic Tac Toe
 run-name: GitHub Actions 🚀
+
 on:
   pull_request:
     branches:
@@ -7,9 +8,11 @@ on:
 
 jobs: 
   run_ui_tests:
+    name: ui test
     runs-on: ubuntu-latest
-  steps:
-    - name : Gradle Clean
-      run: ./gradlew clean
-    - name: Gradle Build
-      run: .gradlew/ build
+
+    steps:
+      - name : Gradle Clean
+        run: ./gradlew clean
+      - name: Gradle Build
+        run: .gradlew/ build
