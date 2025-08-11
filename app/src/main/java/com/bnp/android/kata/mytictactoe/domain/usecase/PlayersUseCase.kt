@@ -1,10 +1,9 @@
-package com.bnp.android.kata.mytictactoe.domain.entity
+package com.bnp.android.kata.mytictactoe.domain.usecase
 
 import com.bnp.android.kata.mytictactoe.domain.enums.Player
 import com.bnp.android.kata.mytictactoe.domain.interfaces.IPlayer
 
-
-class Players: IPlayer {
+class PlayersUseCase: IPlayer {
     private val playerX: Player = Player.X
     private val playerO: Player = Player.O
     private var current: Player = Player.EMPTY

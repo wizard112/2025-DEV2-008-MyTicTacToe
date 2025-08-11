@@ -18,9 +18,15 @@ class VerifierGameUseCase: IVerifierUseCase {
         verifiers.add(element = VerifierDiagonalRow())
     }
 
-    override fun verify(board: List<Player>): StateEnum = when {
-        verifiers.any { verifier -> verifier.verifierRow(board = board, player = Player.X) || verifier.verifierRow(board = board, player = Player.O)} -> StateEnum.FINISHED
-        board.filter { player -> player == Player.X || player == Player.O }.size == 9 -> StateEnum.MATCH_NUL
-        else -> StateEnum.NOT_FINISHED
+    override fun verify(board: Map<Int, MutableList<Player>>): StateEnum {
+        return when {
+            verifiers.any { verifier ->
+                verifier.verifierRow(board = board, player = Player.X)
+                        || verifier.verifierRow(board = board, player = Player.O)
+            } -> StateEnum.FINISHED
+
+            board.values.flatMap { it }.filter { player -> player == Player.X || player == Player.O }.size == 9 -> StateEnum.MATCH_NUL
+            else -> StateEnum.NOT_FINISHED
+        }
     }
 }

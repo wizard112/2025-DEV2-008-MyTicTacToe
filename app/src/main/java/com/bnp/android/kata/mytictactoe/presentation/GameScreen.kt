@@ -5,11 +5,11 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -34,6 +34,7 @@ import com.bnp.android.kata.mytictactoe.domain.constants.REF_LOADING
 import com.bnp.android.kata.mytictactoe.domain.constants.REF_PLAYERS
 import com.bnp.android.kata.mytictactoe.domain.constants.REF_STATE
 import com.bnp.android.kata.mytictactoe.domain.enums.Player
+import kotlin.collections.forEach
 
 @Composable
 fun GameScreen(viewModel: GameViewModel) {
@@ -124,30 +125,31 @@ private fun PlayAgainButton(onclickButton: () -> Unit) {
 }
 
 @Composable
-private fun Grid(board: List<Player>, viewModel: GameViewModel) {
-    LazyVerticalGrid(columns = GridCells.Fixed(count = 3),
-        horizontalArrangement = Arrangement.spacedBy(20.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp),
-        modifier = Modifier
-            .padding(start = 30.dp, end = 30.dp)
-            .layoutId(layoutId = REF_BOARD)
-            .testTag(tag = "grid")) {
-        items(
-            count = board.size,
-            key = { it }) { position ->
-            val item = board[position]
-            Cell(player = item,
-                onClickCell = { viewModel.handleIntents(intent = GameIntents.Moving(position = position)) },
-                modifier = Modifier.testTag(tag = "cell_$position"))
-        }
+private fun Grid(board: Map<Int,List<Player>>, viewModel: GameViewModel) {
+    Column(modifier = Modifier.layoutId(layoutId = REF_BOARD)) {
+        board.keys.forEach { column ->
+            Row {
+                board[column]?.let { row ->
+                    row.forEachIndexed { index, player ->
+                        Cell(player = player,
+                            onClickCell = {
+                                viewModel.handleIntents(intent = GameIntents.Moving(column = column, row = index))
+                            },
+                            modifier = Modifier
+                                .padding(all = 7.dp)
+                                .testTag(tag = "cell_$column$index"))
+                    }
+                }
+            }
+            }
     }
 }
 
 @Composable
 private fun Cell(player: Player, onClickCell:() -> Unit, modifier: Modifier = Modifier) {
     Column(modifier = modifier
-        .size(size = 50.dp)
-        .background(color = Color.LightGray, shape = RoundedCornerShape(size = 10.dp))
+        .height(height = 50.dp).width(width = 40.dp)
+        .background(color = Color.LightGray, shape = RoundedCornerShape(size = 4.dp))
         .clickable(
             enabled = true,
             onClick = { onClickCell() }

@@ -4,5 +4,5 @@ import com.bnp.android.kata.mytictactoe.domain.enums.Player
 import com.bnp.android.kata.mytictactoe.domain.enums.StateEnum
 
 interface IVerifierUseCase {
-    fun verify(board: List<Player>): StateEnum
+    fun verify(board: Map<Int, MutableList<Player>>): StateEnum
 }
