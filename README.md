@@ -62,6 +62,13 @@ This pattern uses a unidirectional data flow, separation of concerns and immutab
 ### SOLID Principles
 I tried to apply the SOLID principles.
 
+## CI/CD
+I tried to use the Github Actions for simple tasks.
+
+- Trigger: for each pull request the action is triggered
+- jobs : clean the project, build the project then run unit test
+
+
 ## Install
 
 ### Github
