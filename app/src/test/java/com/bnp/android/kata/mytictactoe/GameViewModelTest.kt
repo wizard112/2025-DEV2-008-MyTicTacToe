@@ -84,4 +84,21 @@ class GameViewModelTest {
         val uiState = gameViewModel.uiState.value
         Assert.assertTrue(uiState is GameUiState.MatchNull)
     }
+
+    @Test
+    fun `should restart game when a player wins and click on button`() {
+        gameViewModel.handleIntents(intent = GameIntents.Starting)
+        gameViewModel.handleIntents(intent = GameIntents.Moving(column = 0, row = 0))
+        gameViewModel.handleIntents(intent = GameIntents.Moving(column = 0, row = 1))
+        gameViewModel.handleIntents(intent = GameIntents.Moving(column = 0, row = 2))
+        gameViewModel.handleIntents(intent = GameIntents.Moving(column = 1, row = 1))
+        gameViewModel.handleIntents(intent = GameIntents.Moving(column = 1, row = 2))
+        gameViewModel.handleIntents(intent = GameIntents.Moving(column = 2, row = 1))
+        val uiState = gameViewModel.uiState.value
+        gameViewModel.handleIntents(intent = GameIntents.Restarting)
+        val uiStateTwo = gameViewModel.uiState.value
+        Assert.assertTrue(uiState is GameUiState.Winner)
+        Assert.assertEquals(Player.O.name, (uiState as GameUiState.Winner).winnerName)
+        Assert.assertTrue(uiStateTwo is GameUiState.Playing)
+    }
 }
