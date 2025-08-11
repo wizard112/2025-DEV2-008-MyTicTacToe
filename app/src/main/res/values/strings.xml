@@ -3,6 +3,6 @@
 
     <string name="game_match_null"> The game is draw ! %1$s %2$s</string>
     <string name="game_winner"> The winner is %1$s </string>
-    <string name="game_turn_to"> %1$s is your turn </string>
+    <string name="game_turn_to"> %1$s is your turn to play </string>
     <string name="game_play_again"> Play a new game</string>
 </resources>
