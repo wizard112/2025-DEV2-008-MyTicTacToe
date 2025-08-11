@@ -4,15 +4,15 @@
 
 The rules are described below :
 
--X always goes first.
--Players cannot play on a played position.
--Players alternate placing X’s and O’s on the board until either:
-  -> One player has three in a row, horizontally, vertically or diagonally
-  -> All nine squares are filled.
+- X always goes first.
+- Players cannot play on a played position.
+- Players alternate placing X’s and O’s on the board until either:
+   - One player has three in a row, horizontally, vertically or diagonally
+   - All nine squares are filled.
 - If a player is able to draw three X’s or three O’s in a row, that player wins.
 - If all nine squares are filled and neither player has three in a row, the game is a draw.
 
-[Tic Tac Toe link] (https://github.com/stephane-genicot/katas/blob/master/TicTacToe.md)
+[Tic Tac Toe link](https://github.com/stephane-genicot/katas/blob/master/TicTacToe.md)
 
 ## GIT
 
@@ -62,18 +62,17 @@ This pattern uses a unidirectional data flow, separation of concerns and immutab
 ### SOLID Principles
 I tried to apply the SOLID principles.
 
-
 ## Install
 
 ### Github
 clone the project https://github.com/wizard112/2025-DEV2-008-MyTicTacToe.git
 
 ### IDE
-Android Studio Narwhal Feature Drop - 2025.1.2
-Upgrade to Gradle 8.14.3
-JAVA VERSION / Gradle JDK : 21.0.6
-minimum version is 9 (Pie) - API Level is 28
-target SDK and compile SDK is 36
+- Android Studio Narwhal Feature Drop - 2025.1.2
+- Upgrade to Gradle 8.14.3
+- JAVA VERSION / Gradle JDK : 21.0.6
+- minimum version is 9 (Pie) - API Level is 28
+- target SDK and compile SDK is 36
 
 ### Language
 Kotlin version 2.2.0
@@ -91,11 +90,11 @@ Kotlin version 2.2.0
 
 
 ## Sources
-[Gitflow workflow] (https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
-[clean architecture blog - uncle bob] (https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
-[conventional commit] (https://medium.com/@noriller/docs-conventional-commits-feat-fix-refactor-which-is-which-531614fcb65a)
-[example project clean architecture with MVI] (https://medium.com/@sharmapraveen91/mastering-mvi-clean-architecture-for-android-a-comprehensive-guide-with-clean-code-and-tdd-best-98272fabe4f2)
-[Examples README for Android project] (https://gist.github.com/framundo/fb7d75a0176f7be2b02e)
-[Kotlin Doc Collections - any] (https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/any.html)
-[Kotlin Doc collections in general] (https://kotlinlang.org/docs/collections-overview.html)
-[Medium - Android Project with MVI] (https://medium.com/@mohammedkhudair57/mvi-architecture-pattern-in-android-0046bf9b8a2e)
+[Gitflow workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+[clean architecture blog - uncle bob](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+[conventional commit](https://medium.com/@noriller/docs-conventional-commits-feat-fix-refactor-which-is-which-531614fcb65a)
+[example project clean architecture with MVI](https://medium.com/@sharmapraveen91/mastering-mvi-clean-architecture-for-android-a-comprehensive-guide-with-clean-code-and-tdd-best-98272fabe4f2)
+[Examples README for Android project](https://gist.github.com/framundo/fb7d75a0176f7be2b02e)
+[Kotlin Doc Collections - any](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/any.html)
+[Kotlin Doc collections in general](https://kotlinlang.org/docs/collections-overview.html)
+[Medium - Android Project with MVI](https://medium.com/@mohammedkhudair57/mvi-architecture-pattern-in-android-0046bf9b8a2e)
