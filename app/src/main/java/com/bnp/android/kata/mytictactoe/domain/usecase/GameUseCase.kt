@@ -25,7 +25,7 @@ class GameUseCase(private val columns: Int, private val rows: Int): IGameUseCase
         if (mBoard.contains(key = column) && mBoard.get(key = column) != null) {
             mBoard.get(key = column)?.let {
                 if (it[row] != Player.EMPTY)
-                    throw GameException(msg = "$FIELD_ALREADY_TAKEN at ($column, $row) by the play ${it[row]}")
+                    throw GameException(msg = "$FIELD_ALREADY_TAKEN at ($column, $row) is already taken by the player ${it[row]}")
             }
         }
         mBoard[column]?.let { c -> c[row] = player }
