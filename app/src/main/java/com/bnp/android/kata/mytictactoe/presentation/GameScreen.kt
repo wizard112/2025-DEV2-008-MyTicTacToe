@@ -126,7 +126,7 @@ private fun PlayAgainButton(onclickButton: () -> Unit) {
 
 @Composable
 private fun Grid(board: Map<Int,List<Player>>, viewModel: GameViewModel) {
-    Column(modifier = Modifier.layoutId(layoutId = REF_BOARD)) {
+    Column(modifier = Modifier.layoutId(layoutId = REF_BOARD).testTag(tag = "board")) {
         board.keys.forEach { column ->
             Row {
                 board[column]?.let { row ->
