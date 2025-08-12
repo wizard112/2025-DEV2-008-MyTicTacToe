@@ -75,6 +75,10 @@ this pattern uses a unidirectional data flow, separation of concerns and immutab
 I tried to apply the SOLID principles in my different classes, it is a good practice 
 to have a maintainable, testable and scalable project.
 
+## Accessibility
+
+I tried to test the accessibility in the compose UI and then the fix the result of the test
+
 ## CI/CD
 
 I tried to use the Github Actions for simple tasks, this is my first time implementation of the actions.
@@ -129,3 +133,4 @@ Kotlin version 2.2.0
 - [Kotlin Doc Collections - any](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/any.html)
 - [Kotlin Doc collections in general](https://kotlinlang.org/docs/collections-overview.html)
 - [Medium - Android Project with MVI](https://medium.com/@mohammedkhudair57/mvi-architecture-pattern-in-android-0046bf9b8a2e)
+- [Accessibility - Test Compose UI](https://developer.android.com/develop/ui/compose/accessibility/testing?hl=fr)
