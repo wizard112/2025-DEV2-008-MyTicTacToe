@@ -19,22 +19,23 @@ The rules are described below :
 I use Github because I know it and use for my own projects, and it seems correct for this exercise
 
 ### Gitflow workflow
-I try to apply the Gitflow workflow :
-- the main branch : it will contain the final project
-- the develop branch : feature branch crates from this branch and PR into this branch
-- the feature branches : it will the feature which I developed during the implementation
-- the release branches : it is my first release
-- tag for the version : it will contains my first version
+
+I tried to apply the Gitflow workflow :
+- the main branch : it contains the final project
+- the develop branch : the features branch is created from this branch and I do the PR into this branch too
+- the feature branches : it contains each new logic 
+- the release branches : it contains each release, in my case there is the release 1.0
+- tag for the version : I created a tag, the version 1.0
 
 ### Pull Request
 
-I think a good idea to create a pull request for each feature branch, this practice allows me
-to add comment and to try improve my code
+I think a good idea to create a pull request for each feature branch, this process allows me
+to add comment and to try improve my code from this comment.
 
 ## TDD
 
-I never use TDD in professional project, I read some articles before my exercise and I ask some questions about TDD.
-I tried to apply TDD on the project by respecting the principle : RED - GREEN - REFACTOR 
+I never used TDD in any type of the project, I read some articles before my exercise and I ask some questions about TDD around me.
+I tried to apply TDD on the project by respecting the following principle: RED - GREEN - REFACTOR 
 
 ## Architecture
 
@@ -43,45 +44,46 @@ I tried to apply clean Architecture with different layers : UI - DATA - DOMAIN
 
 #### Layer Domain
 
-We have :
  - entities
  - use cases
 
 ##### In the Kata
- I tried to apply the principle one action = one use case
- action play => use case Game
- action is turn to player => use case Players
- action verifier => use case Verifier
+
+ I tried to apply the principle of for one action we have only one use case
+ the action play => use case Game
+ the action it is turn to the player => use case Players
+ the action verifier => use case Verifier
 
 #### Layer Data
    In my implementation this layer is empty.
    We can save the state of game if it was a requirement for example.
 
 #### Layer Presentation
- - handle the interactions of the user from an UI.
+ - To handle the interactions of the user from an UI.
 
 ##### Design pattern Model-View-Intent
 
 I tried to implement the design pattern MVI in this layer. I think it is a good pattern because
 this pattern uses a unidirectional data flow, separation of concerns and immutability : 
 
-- Component Intent represents the interaction and user actions like click button, it communicates teh user's actions.
-- Component Model represents the single source of truth, it has the logic and data and it manages the state.
-- Component View represents the UI renderer, it displays the app's state to the user
+- Component Intent : the interaction and user actions like click button, it communicates the user's actions.
+- Component Model : the single source of truth, it has the logic and data and it manages the state.
+- Component View : the UI renderer, it displays the app's state to the user
 
 
 ### SOLID Principles
 
-I tried to apply the SOLID principles in my different classes, it is a good practice 
-to have a maintainable, testable and scalable project.
+I tried to apply the SOLID principles in my different classes. 
+Theses principles help to have a maintainable, testable and scalable project.
 
 ## Accessibility
 
-I tried to test the accessibility in the compose UI and then the fix the result of the test
+I tried to test the accessibility in the compose UI and 
+then the fix the result of the test in adding semantics to modifier of the cell.
 
 ## CI/CD
 
-I tried to use the Github Actions for simple tasks, this is my first time implementation of the actions.
+I tried to use the Github Actions for simple tasks, it is my first implementation of the actions.
 
 - Trigger: for each pull request the action is triggered
 - jobs : clean the project, build the project and then run unit test.
@@ -113,15 +115,14 @@ Kotlin version 2.2.0
 
 ## Improvements
 
-- I encountered an issue with mutable state flow and the playing ui state, 
-  the map has the same reference that board of Game Use Case 
-  when there is a change the mutable compares old value and new value 
-  but it is the same and the new value does not emit the view. 
-  I use toMap() to create a copy and force to emit new value, 
-  it is not the best approach, need to think a more elegant and good practice approach
-- I am not ok with the conditions and loops use in the verifiers to check different rows, 
-  I think I can use the different operations of Collections to have a code more readable, easy to understand and to evolve.
-- Management of Mutable State Flow in View Model
+- I encountered an issue with the mutable state flow and the playing ui state, 
+  the map of ui state has the same reference that the board of Game Use Case. 
+  When there is a change in the board the mutable compares old value and new value 
+  but it is the same because they share the same reference and the new value does not emitted by the mutable to the view. 
+  I use toMap() to create a copy of the board to enforce the mutable to emit new value to the view. 
+  I know it is not the best approach, need to think a more elegant and a good practice approach
+- I am not ok with the conditions and loops that I use in the verifiers to check the different rows. 
+  I think I mut to use the different operations of Collections to have a code more readable, easy to understand and to evolve.
 
 
 ## Sources
@@ -133,4 +134,4 @@ Kotlin version 2.2.0
 - [Kotlin Doc Collections - any](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/any.html)
 - [Kotlin Doc collections in general](https://kotlinlang.org/docs/collections-overview.html)
 - [Medium - Android Project with MVI](https://medium.com/@mohammedkhudair57/mvi-architecture-pattern-in-android-0046bf9b8a2e)
-- [Accessibility - Test Compose UI](https://developer.android.com/develop/ui/compose/accessibility/testing?hl=fr)
+- [Accessibility - Test Compose UI & Add in UI from the result](https://developer.android.com/develop/ui/compose/accessibility/testing?hl=fr)
