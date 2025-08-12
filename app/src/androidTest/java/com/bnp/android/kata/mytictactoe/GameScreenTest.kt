@@ -7,7 +7,9 @@ import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.accessibility.enableAccessibilityChecks
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.tryPerformAccessibilityChecks
 import com.bnp.android.kata.mytictactoe.presentation.GameIntents
 import com.bnp.android.kata.mytictactoe.presentation.GameScreen
 import com.bnp.android.kata.mytictactoe.presentation.GameViewModel
@@ -40,5 +42,6 @@ class GameScreenTest {
 
         //accessibility
         composeTestRule.enableAccessibilityChecks()
+        composeTestRule.onRoot().tryPerformAccessibilityChecks()
     }
 }
