@@ -21,6 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -137,11 +139,12 @@ private fun Grid(board: Map<Int,List<Player>>, viewModel: GameViewModel) {
                             },
                             modifier = Modifier
                                 .padding(all = 7.dp)
+                                .semantics { this.contentDescription = "The cell is at column $column and the row $row" }
                                 .testTag(tag = "cell_$column$index"))
                     }
                 }
             }
-            }
+        }
     }
 }
 
