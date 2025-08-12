@@ -27,15 +27,18 @@ I tried to apply the Gitflow workflow :
 - the release branches : it contains each release, in my case there is the release 1.0
 - tag for the version : I created a tag, the version 1.0
 
+
 ### Pull Request
 
 I think a good idea to create a pull request for each feature branch, this process allows me
 to add comment and to try improve my code from this comment.
 
+
 ## TDD
 
 I never used TDD in any type of the project, I read some articles before my exercise and I ask some questions about TDD around me.
 I tried to apply TDD on the project by respecting the following principle: RED - GREEN - REFACTOR 
+
 
 ## Architecture
 
@@ -54,9 +57,11 @@ I tried to apply clean Architecture with different layers : UI - DATA - DOMAIN
  the action it is turn to the player => use case Players
  the action verifier => use case Verifier
 
+
 #### Layer Data
    In my implementation this layer is empty.
    We can save the state of game if it was a requirement for example.
+
 
 #### Layer Presentation
  - To handle the interactions of the user from an UI.
@@ -76,10 +81,12 @@ this pattern uses a unidirectional data flow, separation of concerns and immutab
 I tried to apply the SOLID principles in my different classes. 
 Theses principles help to have a maintainable, testable and scalable project.
 
+
 ## Accessibility
 
 I tried to test the accessibility in the compose UI and 
 then the fix the result of the test in adding semantics to modifier of the cell.
+
 
 ## CI/CD
 
@@ -112,6 +119,7 @@ Kotlin version 2.2.0
 
 #### Android Studio
 [IDE](https://developer.android.com/studio/run?hl=fr)
+
 
 ## Improvements
 
