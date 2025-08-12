@@ -16,16 +16,24 @@ The rules are described below :
 
 ## GIT
 
-I use Github because I know it and it seems correct for this exercise
+I use Github because I know it and use for my own projects, and it seems correct for this exercise
+
+### Gitflow workflow
 I try to apply the Gitflow workflow :
-- the main branch 
-- the develop branch
-- the feature branches
-- the release branches
-- tag for the version
+- the main branch : it will contain the final project
+- the develop branch : feature branch crates from this branch and PR into this branch
+- the feature branches : it will the feature which I developed during the implementation
+- the release branches : it is my first release
+- tag for the version : it will contains my first version
+
+### Pull Request
+
+I think a good idea to create a pull request for each feature branch, this practice allows me
+to add comment and to try improve my code
 
 ## TDD
-I never use TDD in project, I read some articles before my exercice ans ask questions about TDD.
+
+I never use TDD in professional project, I read some articles before my exercise and I ask some questions about TDD.
 I tried to apply TDD on the project by respecting the principle : RED - GREEN - REFACTOR 
 
 ## Architecture
@@ -34,25 +42,28 @@ I tried to apply TDD on the project by respecting the principle : RED - GREEN - 
 I tried to apply clean Architecture with different layers : UI - DATA - DOMAIN
 
 #### Layer Domain
+
+We have :
  - entities
  - use cases
 
 ##### In the Kata
  I tried to apply the principle one action = one use case
  action play => use case Game
- action turn to => use case Player
+ action is turn to player => use case Players
  action verifier => use case Verifier
 
 #### Layer Data
- - in this case is empty, we can save the state of game if it was a requirement
+   In my implementation this layer is empty.
+   We can save the state of game if it was a requirement for example.
 
-#### Layer Presentation/UI
- - handle the interaction with UI
+#### Layer Presentation
+ - handle the interactions of the user from an UI.
 
 ##### Design pattern Model-View-Intent
 
-I try to implement he design patter MVI.
-This pattern uses a unidirectional data flow, separation of concerns and immutability : 
+I tried to implement the design pattern MVI in this layer. I think it is a good pattern because
+this pattern uses a unidirectional data flow, separation of concerns and immutability : 
 
 - Component Intent represents the interaction and user actions like click button, it communicates teh user's actions.
 - Component Model represents the single source of truth, it has the logic and data and it manages the state.
@@ -60,13 +71,16 @@ This pattern uses a unidirectional data flow, separation of concerns and immutab
 
 
 ### SOLID Principles
-I tried to apply the SOLID principles.
+
+I tried to apply the SOLID principles in my different classes, it is a good practice 
+to have a maintainable, testable and scalable project.
 
 ## CI/CD
-I tried to use the Github Actions for simple tasks.
+
+I tried to use the Github Actions for simple tasks, this is my first time implementation of the actions.
 
 - Trigger: for each pull request the action is triggered
-- jobs : clean the project, build the project then run unit test
+- jobs : clean the project, build the project and then run unit test.
 
 
 ## Install
@@ -78,13 +92,23 @@ clone the project https://github.com/wizard112/2025-DEV2-008-MyTicTacToe.git
 - Android Studio Narwhal Feature Drop - 2025.1.2
 - Upgrade to Gradle 8.14.3
 - JAVA VERSION / Gradle JDK : 21.0.6
-- minimum version is 9 (Pie) - API Level is 28
+- minimum version is 9 (Pie) - API Level 28
 - target SDK and compile SDK is 36
 
 ### Language
 Kotlin version 2.2.0
 
+### Build
+
+#### Command line
+- navigate to the tictactoe folder of the project
+- run the command `./gradlew installDebug`
+
+#### Android Studio
+[IDE](https://developer.android.com/studio/run?hl=fr)
+
 ## Improvements
+
 - I encountered an issue with mutable state flow and the playing ui state, 
   the map has the same reference that board of Game Use Case 
   when there is a change the mutable compares old value and new value 
