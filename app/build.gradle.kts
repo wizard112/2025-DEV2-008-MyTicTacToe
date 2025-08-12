@@ -55,6 +55,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4.android)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    androidTestImplementation (libs.androidx.espresso.accessibility)
+    androidTestImplementation (libs.androidx.ui.test.junit4.accessibility.android)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.constraintlayout.compose)
