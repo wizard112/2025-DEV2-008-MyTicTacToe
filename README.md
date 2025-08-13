@@ -116,6 +116,7 @@ Kotlin version 2.2.0
 #### Command line
 - navigate to the tictactoe folder of the project
 - run the command `./gradlew installDebug`
+- on your device open the project MyTicTacToe
 
 #### Android Studio
 [IDE](https://developer.android.com/studio/run?hl=fr)
